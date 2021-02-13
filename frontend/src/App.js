@@ -14,6 +14,7 @@ function App() {
   return (
     <div className={classes.root}>
       <h1>Frontend is alive :)</h1>
+      <p>Test body</p>
     </div>
   );
 }

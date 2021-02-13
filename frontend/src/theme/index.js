@@ -1,8 +1,7 @@
-const theme = {
-  backgroundColor: '#ffffff',
-  p: {
-    fontFamily: "'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"
-  }
-}
+import { createMuiTheme } from "@material-ui/core";
+
+const theme = createMuiTheme({
+  backgroundColor: '#ffffff'
+});
 
 export default theme;
