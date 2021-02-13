@@ -1,15 +1,33 @@
-import { AppBar, Grid, Toolbar } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
+import { AppBar, Grid, Toolbar, Typography, Button } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 import React from "react";
 
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      marginTop: "1vh",
+      backgroundColor: theme.palette.background.default,
+    },
+    button: {
+      minWidth: "100px",
+    },
+  })
+);
+
 const Navbar = () => {
+  const classes = useStyles();
+
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar position="static" elevation={0} className={classes.root}>
       <Toolbar>
         <Grid justify="space-between" container>
           <Grid container item xs={3} alignItems="flex-end">
-            <h1>Errander</h1>
+            <Typography variant="h3" color="textPrimary">
+              Errander
+            </Typography>
           </Grid>
+
           <Grid
             container
             item
@@ -19,42 +37,25 @@ const Navbar = () => {
             spacing={4}
           >
             <Grid item>
-              <NavLink
-                exact
-                to="/"
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "white",
-                }}
+              <Button
+                variant="outlined"
+                size="medium"
+                color="primary"
+                className={classes.button}
               >
-                Landing
-              </NavLink>
+                Sign Up
+              </Button>
             </Grid>
 
             <Grid item>
-              <NavLink
-                exact
-                to="/quester"
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "white",
-                }}
+              <Button
+                variant="contained"
+                size="medium"
+                color="primary"
+                className={classes.button}
               >
-                Quester HP
-              </NavLink>
-            </Grid>
-
-            <Grid item>
-              <NavLink
-                exact
-                to="/poster"
-                activeStyle={{
-                  fontWeight: "bold",
-                  color: "white",
-                }}
-              >
-                Poster HP
-              </NavLink>
+                Login
+              </Button>
             </Grid>
           </Grid>
         </Grid>
