@@ -1,22 +1,26 @@
+import { Route, Switch, BrowserRouter } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { LinearProgress } from "@material-ui/core";
 import "./App.css";
-import { makeStyles } from '@material-ui/core/styles';
+import Navbar from "./components/Navbar";
+import QuesterHomePage from "./components/QuesterHomePage";
+import PosterHomePage from "./components/PosterHomePage";
+const LandingPage = lazy(() => import("./components/LandingPage"));
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.backgroundColor,
-    fontSize: '16px'
-  }
-}))
-
-function App() {
-  const classes = useStyles();
-
+const App = () => {
   return (
-    <div className={classes.root}>
-      <h1>Frontend is alive :)</h1>
-      <p>Test body</p>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+
+      <Suspense fallback={<LinearProgress />}>
+        <Switch>
+          <Route path="/poster" exact component={PosterHomePage} />
+          <Route path="/quester" exact component={QuesterHomePage} />
+          <Route path="/" exact component={LandingPage} />
+        </Switch>
+      </Suspense>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
