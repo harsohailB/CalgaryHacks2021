@@ -1,72 +1,85 @@
-import React from "react";
+import { Avatar, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Grid, Typography, TextField } from "@material-ui/core";
-import MessageBox from "./Messagebox";
+import React from "react";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      width: "100%",
-      height: "98%",
-      boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-      borderRadius: "7px",
-      padding: "20px",
-      backgroundColor: theme.palette.background.default,
+      marginTop: "5px",
+      marginBottom: "5px",
+      padding: "10px",
+      "&:hover": {
+        border: "none",
+        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+        transform: "translate(-2px, -2px)",
+        transition: "all ease 0.5s",
+        borderRadius: "7px",
+        cursor: "pointer",
+        "z-index": 100,
+      },
     },
-    title: {
-      marginBottom: "20px",
+    detailIcon: {
+      marginRight: "10px",
+      width: "40px",
+      height: "40px",
     },
-    textbox: {
-      background: "#FFFFFF",
-      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-      borderradius: "10px",
-      padding: "10px 10px 5px 50px",
-      display: "inline-block",
-      marginTop: "15px",
-      marginright: "20px"
+    time: {
+      fontWeight: "normal",
+      margin: "0",
+      color: theme.palette.text.secondary,
+      padding: "10px",
     },
-    boxtext: {
-      fontfamily: "Sora",
-      fontstyle: "normal",
-      fontweight: "normal",
-      fontsize: "16px",
-      lineheight: "10px",
+    detail: {
+      fontSize: "1em",
+      fontWeight: "normal",
+      margin: "0",
+      color: theme.palette.text.secondary,
     },
   })
 );
 
-const sampleMessage = [
-  {
-    name: "Mike Smith",
-    text: "KFC the final",
-    time: new Date(),
-  },
-  {
-    name: "Dr. Moshipour",
-    text: "Processing",
-    time: new Date(),
-  },
-];
-
-const Message = () => {
+const Message = ({ message }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <Grid
       container
-      direction="column"
+      direction="row"
+      justify="space-between"
+      alignItems="center"
       className={classes.root}
-      justify="flex-start"
-  
+      onClick={() => history.push("/errand/1")}
     >
-      <Typography variant="h6" color="textPrimary" className={classes.title}>
-        Messages
-      </Typography>
+      <Grid
+        container
+        item
+        direction="row"
+        alignItems="center"
+        style={{ width: "70%" }}
+      >
+        <Grid item>
+          <Avatar
+            alt={message.name}
+            src={"placeholder"}
+            className={classes.detailIcon}
+          />
+        </Grid>
 
-      {sampleMessage.map((message) => (
-        <MessageBox message={message} />
-      ))}
+        <Grid container direction="column" style={{ width: "80%" }}>
+          <Typography variant="body1" color="textPrimary">
+            {message.text}
+          </Typography>
+          <Typography variant="body1" color="black" className={classes.detail}>
+            {message.errandName}
+          </Typography>
+        </Grid>
+      </Grid>
 
+      <Grid item>
+        <p className={classes.time}>{message.time.toLocaleTimeString()}</p>
+      </Grid>
     </Grid>
   );
 };

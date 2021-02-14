@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandDescriptionCard from "./ErrandDescriptionCard";
 import Map from "./Map";
 import UpdatesCard from "./UpdatesCard";
-import Message from "./Message";
+import Message from "./MessagesCardWithInput";
 import useErrand from "./useErrand";
 
 const sampleErrand = {
@@ -41,6 +41,8 @@ const ErrandPage = ({ id }) => {
   const classes = useStyles();
   const { errand, error, isLoading } = useErrand();
 
+  console.log(errand);
+
   return errand ? (
     <Grid
       container
@@ -59,7 +61,7 @@ const ErrandPage = ({ id }) => {
           container
           direction="row"
           justify="space-around"
-          style={{ width: "100%", marginTop: "10px" }}
+          style={{ width: "100%", marginTop: "10px", maxHeight: "45%" }}
         >
           <UpdatesCard />
 

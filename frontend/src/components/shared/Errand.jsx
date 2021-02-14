@@ -110,39 +110,6 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
           <Tag value={tag} color={index % 2 === 0 ? "#C4C4C4" : "#F8AFAF"} />
         ))}
       </Grid>
-
-      {/* {available && (
-        <Grid
-          container
-          direction="row"
-          justify="flex-end"
-          className={classes.footer}
-        >
-          <Button
-            variant="contained"
-            className={classes.declineButton}
-            startIcon={<ClearIcon />}
-          >
-            Decline
-          </Button>
-          <Button
-            variant="contained"
-            className={classes.acceptButton}
-            startIcon={<CheckIcon />}
-          >
-            Accept
-          </Button>
-        </Grid>
-      )}
-      <Grid container direction="row" justify="flex-end">
-        {questerSelect ? (
-          <Button variant="contained" className={classes.selectButton}>
-            Select Quester ({numApplicants})
-          </Button>
-        ) : (
-          <div />
-        )}
-      </Grid> */}
     </Grid>
   );
 };

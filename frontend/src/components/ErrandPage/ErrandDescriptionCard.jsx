@@ -97,7 +97,9 @@ const ErrandDescriptionCard = ({ errand }) => {
           justify="space-between"
           className={classes.header}
         >
-          <p className={classes.details}>{errand.endTime.toLocaleString()}</p>
+          {errand.endTime && (
+            <p className={classes.details}>{errand.endTime.toLocaleString()}</p>
+          )}
           <p className={classes.details}>
             {errand.distance ? errand.distance + " km" : "Virtual"}
           </p>

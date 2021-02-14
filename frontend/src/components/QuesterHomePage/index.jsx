@@ -2,8 +2,7 @@ import React from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandsCard from "./ErrandsCard";
-import ErrandsCard50 from "./ErrandsCard50";
-import Message from "./Message"
+import MessagesCardWithoutInput from "../shared/MessagesCardWithoutInput";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -12,9 +11,14 @@ const useStyles = makeStyles((theme) =>
       height: "90vh",
       maxHeight: "88vh",
       marginTop: "10px",
+      minHeight: "100%",
     },
     third: {
       width: "32%",
+    },
+    half: {
+      height: "50%",
+      width: "100%",
     },
   })
 );
@@ -35,13 +39,19 @@ const QuesterHomePage = () => {
       <Grid item className={classes.third}>
         <ErrandsCard title="Available Errands" />
       </Grid>
-      <Grid container
-          direction="row"
-          justify="space-around" 
-          padding="20px"
-          className={classes.third}>
-        <ErrandsCard50 title="Pending Errands" />
-        <Message></Message>
+      <Grid
+        container
+        direction="row"
+        justify="space-around"
+        padding="20px"
+        className={classes.third}
+      >
+        <Grid item className={classes.half}>
+          <ErrandsCard title="Pending Errands" />
+        </Grid>
+        <Grid item className={classes.half}>
+          <MessagesCardWithoutInput />
+        </Grid>
       </Grid>
     </Grid>
   );
