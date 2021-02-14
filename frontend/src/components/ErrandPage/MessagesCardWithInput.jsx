@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) =>
     title: {
       marginBottom: "20px",
     },
+    messages: {
+      maxHeight: "65%",
+      overflowY: "scroll",
+    },
   })
 );
 
@@ -43,21 +47,25 @@ const MessagesInputWithInput = ({ errand }) => {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      className={classes.root}
-      justify="space-between"
-    >
+    <Grid container direction="column" className={classes.root}>
       <Typography variant="h6" color="textPrimary" className={classes.title}>
         Messages
       </Typography>
 
-      {messages.map((message) => (
-        <MessageBox message={message} errand={errand} />
-      ))}
+      <Grid item className={classes.messages}>
+        {messages.map((message) => (
+          <MessageBox message={message} errand={errand} />
+        ))}
+      </Grid>
 
-      <TextField label="Type to chat..."></TextField>
+      <TextField
+        label="Type to chat..."
+        onKeyDown={(event) =>
+          event.keyCode === 13 && (onSend(textField) || setTextField(""))
+        }
+        onChange={handleChange}
+        value={textField}
+      ></TextField>
     </Grid>
   );
 };

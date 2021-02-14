@@ -61,7 +61,7 @@ const ErrandPage = ({ id }) => {
           container
           direction="row"
           justify="space-around"
-          style={{ width: "100%", marginTop: "10px" }}
+          style={{ width: "100%", marginTop: "10px", maxHeight: "45%" }}
         >
           <UpdatesCard />
 
