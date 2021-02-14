@@ -35,6 +35,8 @@ const ErrandPage = ({ id }) => {
   const classes = useStyles();
   const { errand, error, isLoading } = useErrand();
 
+  console.log(errand);
+
   return errand ? (
     <Grid
       container
@@ -48,7 +50,7 @@ const ErrandPage = ({ id }) => {
 
       <Grid container className={classes.twoThirds} direction="column">
         <Grid className={classes.card}>
-          <Map />
+          <Map errandAddress={errand.address} />
         </Grid>
 
         <Grid

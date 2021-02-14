@@ -119,7 +119,11 @@ const Errand = ({ errand }) => {
         justify="space-between"
         style={{ marginBottom: "10px" }}
       >
-        <p className={classes.details}>{errand.distance || "Virtual"} </p>
+        <p className={classes.details}>
+          {errand.address
+            ? errand.address.title.substring(0, 25) + "..."
+            : "Virtual"}{" "}
+        </p>
         <div className={classes.status}>{errand.status.replace("_", " ")}</div>
       </Grid>
 

@@ -16,7 +16,7 @@ const mapStyles = {
   padding: "20px",
 };
 
-const Map = () => {
+const Map = ({ errandAddress }) => {
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
   const [viewport, setViewport] = useState({
     latitude: 51.0447,
@@ -27,18 +27,21 @@ const Map = () => {
   });
 
   const [currentLocation, setCurrentLocation] = useState();
-  const [destination, setDestination] = useState({
-    latitude: 51.159521,
-    longitude: -114.049419,
-  });
+  const [destination, setDestination] = useState(
+    errandAddress || {
+      title: "",
+      lat: 51.159521,
+      lon: -114.049419,
+    }
+  );
   const [directionsPoints, setDirectionsPoints] = useState([]);
 
   useEffect(() => {
     // Sets map to your current location
     navigator.geolocation.getCurrentPosition((position) => {
       setCurrentLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
       });
       setViewport({
         ...viewport,
@@ -49,12 +52,13 @@ const Map = () => {
   }, []);
 
   useEffect(() => {
-    if (currentLocation && destination) {
+    console.log(errandAddress);
+    if (currentLocation) {
       getDirections(
-        currentLocation.latitude,
-        currentLocation.longitude,
-        destination.latitude,
-        destination.longitude
+        currentLocation.lat,
+        currentLocation.lon,
+        destination.lat,
+        destination.lon
       ).then((fetchedDirection) => {
         const stepCoords = fetchedDirection.routes[0].geometry.coordinates.map(
           (coordinate) => {
@@ -64,6 +68,7 @@ const Map = () => {
             };
           }
         );
+        console.log(stepCoords);
         setDirectionsPoints(stepCoords);
         setViewport({
           ...viewport,
@@ -86,8 +91,8 @@ const Map = () => {
     >
       {currentLocation && (
         <Marker
-          latitude={currentLocation.latitude}
-          longitude={currentLocation.longitude}
+          latitude={currentLocation.lat}
+          longitude={currentLocation.lon}
           offsetLeft={-12}
           offsetTop={-24}
         >
@@ -99,8 +104,8 @@ const Map = () => {
 
       {destination && (
         <Marker
-          latitude={destination.latitude}
-          longitude={destination.longitude}
+          latitude={destination.lat}
+          longitude={destination.lon}
           offsetLeft={-12}
           offsetTop={-24}
         >
