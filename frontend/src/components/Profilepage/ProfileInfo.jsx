@@ -81,7 +81,7 @@ const ProfileInfo = ({ pinfo }) => {
                   required
                   fullWidth
                   id="username"
-                  label={pinfo.name}
+                  label="username"
                   name="username"
                   autoComplete="username"
                   autoFocus
