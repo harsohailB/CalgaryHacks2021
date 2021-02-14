@@ -70,11 +70,13 @@ const CreateErrandPage = () => {
           startTime: null,
           endTime: null,
           poster: "",
+          price: "",
         }}
         onSubmit={async (values, { setSubmitting }) => {
           const reqBody = {
             ...values,
             address: formAddress,
+            price: parseInt(values.price),
             posterId: user._id,
           };
           const { data: errand } = await axios.post("/api/errands", reqBody);
@@ -131,6 +133,23 @@ const CreateErrandPage = () => {
                       autoFocus
                       value={values.description}
                       error={values.description.length === 0}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      multiline
+                      required
+                      fullWidth
+                      rows={1}
+                      name="price"
+                      label="Errand Price"
+                      autoComplete="price"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      autoFocus
+                      value={values.price}
+                      error={values.price.length === 0}
                     />
                   </Grid>
                   <Grid item xs={12}>

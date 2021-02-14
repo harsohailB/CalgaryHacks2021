@@ -94,7 +94,7 @@ const Errand = ({ errand }) => {
     >
       <Grid container direction="row" justify="space-between">
         <p className={classes.title}>{errand.name}</p>
-        <p className={classes.title}>{formatCurrency(23)}</p>
+        {errand.price && <p className={classes.title}>{"$" + errand.price}</p>}
       </Grid>
 
       <Grid container direction="row" justify="space-between">

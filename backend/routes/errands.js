@@ -19,6 +19,7 @@ router.post("/", async function (req, res, next) {
     endTime,
     errandType,
     address,
+    price,
   } = req.body;
 
   const messageThread = await new MessageThread().save();
@@ -30,6 +31,7 @@ router.post("/", async function (req, res, next) {
     expiryTime: expiryTime ? new Date(expiryTime) : null,
     startTime: startTime ? new Date(startTime) : null,
     endTime: endTime ? new Date(endTime) : null,
+    price: price,
     poster: posterId,
     messageThread: messageThread._id,
     status: "AVAILABLE",
