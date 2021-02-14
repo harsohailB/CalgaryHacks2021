@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const ErrandsCard = ({ title, errands }) => {
+const ErrandsCard = ({ title, errands = [] }) => {
   const classes = useStyles();
 
   const sampleErrands = [

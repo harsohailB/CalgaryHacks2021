@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Grid, Typography, TextField } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
+import { UserContext } from "../../contexts/UserContext";
+import axios from "axios";
 import Message from "./Message";
 
 const useStyles = makeStyles((theme) =>
@@ -19,21 +21,24 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const sampleMessage = [
-  {
-    errandName: "Gift Delivery",
-    text: "Hey where are you?",
-    time: new Date(),
-  },
-  {
-    errandName: "Gift Delivery",
-    text: "Just got your package",
-    time: new Date(),
-  },
-];
+const useMessages = () => {
+  const [messages, setMessages] = useState([]);
+  const user = useContext(UserContext);
+
+  useEffect(() => {
+    if (user._id) {
+      axios
+        .get("/api/messages/all", { userId: user._id })
+        .then((res) => setMessages(res.data));
+    }
+  }, [user._id]);
+
+  return { messages };
+};
 
 const MessagesCardWithoutInput = () => {
   const classes = useStyles();
+  const { messages } = useMessages();
 
   return (
     <Grid
@@ -46,7 +51,7 @@ const MessagesCardWithoutInput = () => {
         Messages
       </Typography>
 
-      {sampleMessage.map((message) => (
+      {messages.map((message) => (
         <Message message={message} />
       ))}
     </Grid>

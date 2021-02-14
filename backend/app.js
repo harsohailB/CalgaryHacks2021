@@ -42,12 +42,14 @@ var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
 var errandsRouter = require('./routes/errands');
 var tagsRouter = require('./routes/tags').router;
+var messagesRouter = require('./routes/messages');
 
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/errands', errandsRouter);
 app.use('/api/tags', tagsRouter);
+app.use('/api/messages', messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
