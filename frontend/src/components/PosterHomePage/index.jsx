@@ -42,7 +42,7 @@ const PosterHomePage = () => {
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
   } = useQuery(["available_errands_poster"], () =>
-    getAvailableErrandsForPoster(user.id)
+    getAvailableErrandsForPoster(user._id)
   );
 
   const {
@@ -51,7 +51,7 @@ const PosterHomePage = () => {
     isSuccess: acceptedErrandsSuccess,
     refetch: acceptedErrandsRefetch,
   } = useQuery(["accepted_errands_poster"], () =>
-    getAcceptedErrandsForPoster(user.id)
+    getAcceptedErrandsForPoster(user._id)
   );
 
   return (
