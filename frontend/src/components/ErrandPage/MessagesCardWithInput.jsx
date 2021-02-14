@@ -17,22 +17,6 @@ const useStyles = makeStyles((theme) =>
     title: {
       marginBottom: "20px",
     },
-    textbox: {
-      background: "#FFFFFF",
-      boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-      borderradius: "10px",
-      padding: "10px 10px 5px 50px",
-      display: "inline-block",
-      marginTop: "15px",
-      marginright: "20px",
-    },
-    boxtext: {
-      fontFamily: "Sora",
-      fontStyle: "normal",
-      fontWeight: "normal",
-      fontSize: "16px",
-      lineHeight: "10px",
-    },
   })
 );
 
@@ -73,15 +57,7 @@ const MessagesInputWithInput = ({ errand }) => {
         <MessageBox message={message} errand={errand} />
       ))}
 
-      <TextField
-        className={classes.textbox}
-        label="Type to chat..."
-        onKeyDown={(event) =>
-          event.keyCode === 13 && (onSend(textField) || setTextField(""))
-        }
-        onChange={handleChange}
-        value={textField}
-      ></TextField>
+      <TextField label="Type to chat..."></TextField>
     </Grid>
   );
 };
