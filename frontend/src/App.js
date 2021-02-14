@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import QuesterHomePage from "./components/QuesterHomePage";
 import PosterHomePage from "./components/PosterHomePage";
+import ErrandPage from "./components/ErrandPage";
 const LandingPage = lazy(() => import("./components/LandingPage"));
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Switch>
           <Route path="/poster" exact component={PosterHomePage} />
           <Route path="/quester" exact component={QuesterHomePage} />
+          <Route path="/errand/:id" exact component={ErrandPage} />
           <Route path="/" exact component={LandingPage} />
         </Switch>
       </Suspense>
