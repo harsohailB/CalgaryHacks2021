@@ -34,6 +34,7 @@ const SignUp= () => {
                         label="Username/Email"
                         name="username"
                         autoComplete="username"
+                        autoFocus
                     />
                     </Grid>
                     <Grid item xs={12}>
