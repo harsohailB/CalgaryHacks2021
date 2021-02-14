@@ -128,6 +128,34 @@ export const getAcceptedErrandsForPoster = async (userId) => {
   return response.data.errands;
 };
 
+export const getInProgressErrandsForPoster = async (userId) => {
+  const body = { posterId: userId, status: "IN_PROGRESS" };
+
+  const response = await axios.get("/api/errands/poster", { params: body });
+
+  if (response.status !== 200) {
+    throw (
+      "getAcceptedErrandsForPoster failed with error code " + response.status
+    );
+  }
+
+  return response.data.errands;
+};
+
+export const getCompletedErrandsForPoster = async (userId) => {
+  const body = { posterId: userId, status: "COMPLETED" };
+
+  const response = await axios.get("/api/errands/poster", { params: body });
+
+  if (response.status !== 200) {
+    throw (
+      "getAcceptedErrandsForPoster failed with error code " + response.status
+    );
+  }
+
+  return response.data.errands;
+};
+
 export const posterAcceptQuesterForErrand = async (applicationId) => {
   const body = { applicationId };
 

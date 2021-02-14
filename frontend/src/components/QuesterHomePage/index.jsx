@@ -88,22 +88,24 @@ const QuesterHomePage = () => {
             )
         )
       );
-
-      let tempTodoErrands = [];
-      if (acceptedErrandsSuccess) {
-        tempTodoErrands = [...acceptedErrands];
-      }
-      if (inProgressErrandsSuccess) {
-        console.log(inProgressErrands);
-        tempTodoErrands = [...tempTodoErrands, ...inProgressErrands];
-      }
-      if (completedErrandsSuccess) {
-        tempTodoErrands = [...tempTodoErrands, ...completedErrands];
-      }
-
-      setTodoErrands(tempTodoErrands);
     }
   }, [availableErrands]);
+
+  useEffect(() => {
+    let tempTodoErrands = [];
+    if (acceptedErrandsSuccess) {
+      tempTodoErrands = [...tempTodoErrands, ...acceptedErrands];
+    }
+    if (inProgressErrandsSuccess) {
+      console.log(inProgressErrands);
+      tempTodoErrands = [...tempTodoErrands, ...inProgressErrands];
+    }
+    if (completedErrandsSuccess) {
+      tempTodoErrands = [...tempTodoErrands, ...completedErrands];
+    }
+
+    setTodoErrands(tempTodoErrands);
+  }, [availableErrands, acceptedErrands, inProgressErrands, completedErrands]);
 
   return (
     <Grid
