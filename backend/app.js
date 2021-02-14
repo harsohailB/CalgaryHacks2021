@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
 var debug = require('debug')('app');
+const socketIo = require("socket.io");
 
 // models go here
 require("./models/User");
@@ -67,6 +68,8 @@ app.use(function (err, req, res, next) {
 const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 var server = http.createServer(app);
+
+require('./io')(server);
 
 server.listen(port);
 server.on('error', onError);
