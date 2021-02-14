@@ -128,7 +128,7 @@ const Errand = ({ errand }) => {
       </Grid>
 
       <Typography variant="body1" color="textPrimary">
-        {errand.description}
+        {errand.description.substring(0, 40) + "..."}
       </Typography>
 
       <Grid container direction="row" className={classes.tags}>
