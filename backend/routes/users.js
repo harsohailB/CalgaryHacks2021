@@ -4,11 +4,15 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
 
-/* GET home page. */
 router.post('/', async function (req, res, next) {
-  const { id, name, age, description } = req.body;
+  const { name, age, description, username, password } = req.body;
 
-  const newUser = await new User({ id, name, age, description }).save();
+  const newUser = (await new User({ name, age, description, username, password }).save()).toObject();
+
+  delete newUser.username;
+  delete newUser.password;
+
+  console.log(typeof newUser, { newUser }, newUser.username, newUser.password)
 
   res.send(newUser);
 });
