@@ -43,7 +43,7 @@ const QuesterHomePage = () => {
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
   } = useQuery(["available_errands_quester"], () =>
-    getAvailableErrandsForQuester(user.id)
+    getAvailableErrandsForQuester(user._id)
   );
 
   const {
@@ -52,7 +52,7 @@ const QuesterHomePage = () => {
     isSuccess: acceptedErrandsSuccess,
     refetch: acceptedErrandsRefetch,
   } = useQuery(["accepted_errands_quester"], () =>
-    getAcceptedErrandsForQuester(user.id)
+    getAcceptedErrandsForQuester(user._id)
   );
 
   return (
