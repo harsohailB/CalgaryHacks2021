@@ -1,8 +1,18 @@
 import { Grid } from "@material-ui/core";
-import React, { useState } from "react";
+import { Marker, Popup } from "react-map-gl";
+import { Tooltip } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
 import ReactMapGL from "react-map-gl";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import DriveEtaIcon from "@material-ui/icons/DriveEta";
 
-const envs = require("dotenv").config();
+const mapStyles = {
+  width: "100%",
+  height: "50%",
+  boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+  borderRadius: "7px",
+  padding: "20px",
+};
 
 const Map = () => {
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
@@ -14,13 +24,26 @@ const Map = () => {
     pitch: 0,
   });
 
-  const mapStyles = {
-    width: "100%",
-    height: "50%",
-    boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-    borderRadius: "7px",
-    padding: "20px",
-  };
+  const [currentLocation, setCurrentLocation] = useState();
+  const [destination, setDestination] = useState({
+    latitude: 51.159521,
+    longitude: -114.049419,
+  });
+
+  useEffect(() => {
+    // Sets map to your current location
+    navigator.geolocation.getCurrentPosition((position) => {
+      setCurrentLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+      setViewport({
+        ...viewport,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  }, []);
 
   return (
     <ReactMapGL
@@ -31,7 +54,33 @@ const Map = () => {
       mapStyle="mapbox://styles/mapbox/dark-v9"
       onViewportChange={(nextViewport) => setViewport(nextViewport)}
       mapboxApiAccessToken={MAPBOX_TOKEN}
-    ></ReactMapGL>
+    >
+      {currentLocation && (
+        <Marker
+          latitude={currentLocation.latitude}
+          longitude={currentLocation.longitude}
+          offsetLeft={-12}
+          offsetTop={-24}
+        >
+          <Tooltip placement="top" title="Your Location">
+            <DriveEtaIcon color="secondary" />
+          </Tooltip>
+        </Marker>
+      )}
+
+      {destination && (
+        <Marker
+          latitude={destination.latitude}
+          longitude={destination.longitude}
+          offsetLeft={-12}
+          offsetTop={-24}
+        >
+          <Tooltip placement="top" title="Destination">
+            <LocationOnIcon color="secondary" />
+          </Tooltip>
+        </Marker>
+      )}
+    </ReactMapGL>
   );
 };
 
