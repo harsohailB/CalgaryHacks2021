@@ -52,10 +52,20 @@ const useStyles = makeStyles((theme) =>
         boxShadow: "none",
       },
     },
+    selectButton: {
+      color: "#FFFFFF",
+      marginLeft: "10px",
+      backgroundColor: "#35CD99",
+      "&:hover": {
+        backgroundColor: "#35CD99",
+        borderColor: "#0062cc",
+        boxShadow: "none",
+      },
+    }
   })
 );
 
-const Errand = ({ errand, available }) => {
+const Errand = ({ errand, available, questerSelect, numApplicants}) => {
   const classes = useStyles();
 
   return (
@@ -108,6 +118,16 @@ const Errand = ({ errand, available }) => {
           </Button>
         </Grid>
       )}
+      <Grid container direction="row" justify="flex-end">
+      {questerSelect 
+      ? <Button
+            variant="contained"
+            className={classes.selectButton}
+        >
+            Select Quester ({numApplicants})
+        </Button>
+      : <div />}
+      </Grid>
     </Grid>
   );
 };
