@@ -23,7 +23,7 @@ const sampleUpdates = [
   {
     name: "Errander",
     text: "Starting Task",
-    time: new Date(),
+    time: new Date(Date.now() - 1000 * 60 * 60 * 2),
   },
   {
     name: "Errander",
@@ -32,7 +32,7 @@ const sampleUpdates = [
   },
 ];
 
-const UpdatesCard = () => {
+const UpdatesCard = ({ errand }) => {
   const classes = useStyles();
 
   return (
@@ -40,10 +40,8 @@ const UpdatesCard = () => {
       <Typography variant="h6" color="textPrimary" className={classes.title}>
         Updates
       </Typography>
-
-      {sampleUpdates.map((update) => (
-        <Update update={update} />
-      ))}
+      <Update update={sampleUpdates[0]} />
+      {errand.status === "COMPLETED" && <Update update={sampleUpdates[1]} />}
     </Grid>
   );
 };

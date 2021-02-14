@@ -341,7 +341,7 @@ const ErrandDescriptionCard = ({ errand }) => {
               Applications
             </Typography>
           )}
-          {errand.status === "ACCEPTED" && (
+          {errand.status !== "AVAILABLE" && (
             <Typography variant="h6" color="textPrimary">
               Accepted By
             </Typography>
@@ -359,7 +359,7 @@ const ErrandDescriptionCard = ({ errand }) => {
             </Grid>
           )}
 
-          {errand.status === "ACCEPTED" && (
+          {errand.status !== "AVAILABLE" && (
             <Grid
               container
               direction="row"

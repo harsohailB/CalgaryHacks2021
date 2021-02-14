@@ -59,10 +59,9 @@ const ErrandPage = ({ id }) => {
           justify="space-around"
           style={{ width: "100%", marginTop: "10px", maxHeight: "45%" }}
         >
-          <UpdatesCard />
+          <UpdatesCard errand={errand} />
 
-          {/* to be replace with messages regarding errand */}
-          <Message errand={errand} />
+          {errand.poster && errand.quester && <Message errand={errand} />}
         </Grid>
       </Grid>
     </Grid>
