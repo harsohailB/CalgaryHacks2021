@@ -40,7 +40,7 @@ var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
 var errandsRouter = require('./routes/errands');
-var tagsRouter = require('./routes/tags');
+var tagsRouter = require('./routes/tags').router;
 
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
@@ -67,6 +67,8 @@ app.use(function (err, req, res, next) {
 const port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 var server = http.createServer(app);
+
+require('./io')(server);
 
 server.listen(port);
 server.on('error', onError);

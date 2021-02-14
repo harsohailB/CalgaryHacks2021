@@ -3,9 +3,8 @@ const { Schema } = mongoose;
 
 const message = new Schema({
   text: String,
-  author: { type: Schema.Types.ObjectId, ref: "users", autopopulate: "true" }
+  author: { type: Schema.Types.ObjectId, ref: "users" },
+  time: Date
 });
-
-message.plugin(require('mongoose-autopopulate'));
 
 mongoose.model("messages", message);

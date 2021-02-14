@@ -1,4 +1,3 @@
-
 import { Avatar, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import React from "react";
@@ -22,13 +21,16 @@ const useStyles = makeStyles((theme) =>
     },
     textmes: {
       padding: "10px",
-
     },
   })
 );
 
-const Messagebox = ({ message }) => {
+const Messagebox = ({ message, errand }) => {
   const classes = useStyles();
+  const name =
+    message.author === errand.poster.id
+      ? errand.poster.name
+      : errand.quester.name;
 
   return (
     <Grid
@@ -44,24 +46,19 @@ const Messagebox = ({ message }) => {
         alignItems="center"
         style={{ width: "50%" }}
       >
-        <Avatar
-          alt={message.name}
-          src={"placeholder"}
-          className={classes.detailIcon}
-        />
+        <Avatar alt={name} src={"placeholder"} className={classes.detailIcon} />
         <Typography variant="body1" color="textPrimary">
-          {message.name}
+          {name}
         </Typography>
       </Grid>
       <Typography variant="body2" color="black" className={classes.textmes}>
-    {message.text}
-    </Typography>
+        {message.text}
+      </Typography>
 
       <Grid item>
         <p className={classes.time}>{message.time.toLocaleString()}</p>
       </Grid>
     </Grid>
-
   );
 };
 
