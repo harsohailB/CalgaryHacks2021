@@ -6,13 +6,16 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import GooglePlacesAutocomplete, {
+  geocodeByAddress,
+} from "react-google-places-autocomplete";
 import {
   MuiPickersUtilsProvider,
   KeyboardTimePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { UserContext } from "../../contexts/UserContext";
 import { Formik, useField, useFormikContext } from "formik";
@@ -39,6 +42,29 @@ const CreateErrandPage = () => {
   const history = useHistory();
   const [user] = useContext(UserContext);
 
+  const [address, setAddress] = useState();
+  const [formAddress, setFormAddress] = useState(null);
+
+  useEffect(() => {
+    if (address) {
+      geocodeByAddress(address.label).then((fetchedGeoCode) => {
+        if (fetchedGeoCode) {
+          setFormAddress({
+            title: address.label,
+            lat: fetchedGeoCode[0].geometry.viewport.Va.i,
+            lon: fetchedGeoCode[0].geometry.viewport.Qa.i,
+          });
+        } else {
+          setFormAddress({
+            title: address.label,
+            lat: null,
+            lon: null,
+          });
+        }
+      });
+    }
+  }, [address]);
+
   return (
     <div>
       <Formik
@@ -50,6 +76,7 @@ const CreateErrandPage = () => {
           startTime: null,
           endTime: null,
           poster: "",
+          address: formAddress,
         }}
         onSubmit={async (values, { setSubmitting }) => {
           const reqBody = {
@@ -111,6 +138,15 @@ const CreateErrandPage = () => {
                       autoFocus
                       value={values.description}
                       error={values.description.length === 0}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <GooglePlacesAutocomplete
+                      apiKey={process.env.REACT_APP_GOOGLE_MAPS_KEY}
+                      selectProps={{
+                        address,
+                        onChange: setAddress,
+                      }}
                     />
                   </Grid>
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>

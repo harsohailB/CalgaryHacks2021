@@ -87,7 +87,9 @@ const Message = ({ message }) => {
 
       {message.time && (
         <Grid item>
-          <p className={classes.time}>{message.time.toLocaleTimeString()}</p>
+          <p className={classes.time}>
+            {new Date(message.time).toLocaleTimeString()}
+          </p>
         </Grid>
       )}
     </Grid>

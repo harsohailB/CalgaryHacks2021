@@ -9,11 +9,12 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: "100%",
-      height: "98%",
       boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
       borderRadius: "7px",
       padding: "20px",
       backgroundColor: theme.palette.background.default,
+      maxHeight: "50%",
+      overflowY: "scroll",
     },
     title: {
       marginBottom: "20px",
