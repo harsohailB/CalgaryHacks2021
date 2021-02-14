@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const mongoose = require("mongoose");
 const Errand = mongoose.model("errands");
+const ErrandType = mongoose.model("errandTypes");
 const MessageThread = mongoose.model("messageThreads");
 
 /* GET home page. */
@@ -13,6 +14,7 @@ router.post("/", async function (req, res, next) {
     expiryTime,
     startTime,
     endTime,
+    errandType
   } = req.body;
 
   const messageThread = await new MessageThread().save();
@@ -26,6 +28,7 @@ router.post("/", async function (req, res, next) {
     poster: posterId,
     messageThread: messageThread._id,
     status: "AVAILABLE",
+    type: errandType
   };
 
   const result = await new Errand(errandInfo).save();
@@ -51,8 +54,6 @@ router.get("/poster", async function (req, res, next) {
   const params = { poster: posterId };
   if (status) params.status = status;
 
-  console.log({ params });
-
   const errands = await Errand.find(params)
     .populate("poster")
     .populate("quester")
@@ -67,14 +68,20 @@ router.get("/quester", async function (req, res, next) {
   const params = { quester: questerId };
   if (status) params.status = status;
 
-  console.log({ params });
-
   const errands = await Errand.find(params)
     .populate("poster")
     .populate("quester")
     .populate("review");
 
   res.send({ errands });
+});
+
+router.get("/types", async function (req, res, next) {
+  new ErrandType({ name: 'Test' }).save();
+
+  const types = await ErrandType.find({ name: 'Delivery' })
+
+  res.send({ errandTypes: types });
 });
 
 module.exports = router;

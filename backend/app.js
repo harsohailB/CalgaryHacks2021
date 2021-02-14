@@ -11,18 +11,13 @@ var debug = require('debug')('app');
 
 // models go here
 require("./models/User");
-require("./models/Errand");
 require("./models/ErrandStage");
 require("./models/ErrandType");
-require("./models/Messages");
+require("./models/Errand");
+require("./models/Message");
 require("./models/MessageThread");
 require("./models/Review");
 require("./models/Tag");
-
-var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
-var usersRouter = require('./routes/users');
-var errandsRouter = require('./routes/errands');
 
 const mongoUri = process.env.MONGO_URI;
 
@@ -41,10 +36,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+var usersRouter = require('./routes/users');
+var errandsRouter = require('./routes/errands');
+var tagsRouter = require('./routes/tags');
+
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user', usersRouter);
 app.use('/api/errands', errandsRouter);
+app.use('/api/tags', tagsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
