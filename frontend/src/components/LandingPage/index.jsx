@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       maxWidth: "100vw",
-      maxHeight: "100vh",
+      height: "88vh",
       padding: "3%",
     },
     instructions: {
