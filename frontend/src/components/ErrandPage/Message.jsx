@@ -54,7 +54,9 @@ const MessageCardWithInput = ({ message }) => {
       </Grid>
 
       <Grid item>
-        <p className={classes.time}>{message.time.toLocaleString()}</p>
+        <p className={classes.time}>
+          {new Date(message.time).toLocaleTimeString()}
+        </p>
       </Grid>
     </Grid>
   );

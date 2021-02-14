@@ -50,8 +50,6 @@ const ErrandPage = ({ id }) => {
   const classes = useStyles();
   const { errand, error, isLoading } = useErrand();
 
-  console.log(errand);
-
   return errand ? (
     <Grid
       container
