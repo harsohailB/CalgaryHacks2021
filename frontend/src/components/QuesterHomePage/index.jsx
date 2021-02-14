@@ -97,7 +97,6 @@ const QuesterHomePage = () => {
       tempTodoErrands = [...tempTodoErrands, ...acceptedErrands];
     }
     if (inProgressErrandsSuccess) {
-      console.log(inProgressErrands);
       tempTodoErrands = [...tempTodoErrands, ...inProgressErrands];
     }
     if (completedErrandsSuccess) {

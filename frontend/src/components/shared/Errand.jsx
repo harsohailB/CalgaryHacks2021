@@ -123,7 +123,7 @@ const Errand = ({ errand }) => {
         <div className={classes.status}>{errand.status.replace("_", " ")}</div>
       </Grid>
 
-      <Typography variant="p" color="textPrimary">
+      <Typography variant="body1" color="textPrimary">
         {errand.description}
       </Typography>
 

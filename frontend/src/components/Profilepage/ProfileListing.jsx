@@ -98,7 +98,7 @@ const ProfileListing = ({ pinfo }) => {
           Email: {pinfo.email}
         </Typography> */}
         <Typography
-          variant="p"
+          variant="body1"
           color="textPrimary"
           padding="15px"
           font-weight="bold"

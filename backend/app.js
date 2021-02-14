@@ -15,6 +15,7 @@ require("./models/Application");
 require("./models/ErrandStage");
 require("./models/ErrandType");
 require("./models/Errand");
+require("./models/Address");
 require("./models/Message");
 require("./models/MessageThread");
 require("./models/Review");

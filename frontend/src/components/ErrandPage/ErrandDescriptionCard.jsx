@@ -200,7 +200,7 @@ const ErrandDescriptionCard = ({ errand }) => {
               src={"placeholder"}
               className={classes.detailIcon}
             />
-            <Typography variant="p" color="textPrimary">
+            <Typography variant="body1" color="textPrimary">
               {application.quester.name}
             </Typography>
           </Grid>
@@ -254,7 +254,7 @@ const ErrandDescriptionCard = ({ errand }) => {
           </p>
         </Grid>
 
-        <Typography variant="p" color="textPrimary">
+        <Typography variant="body1" color="textPrimary">
           {errand.description}
         </Typography>
 
@@ -368,7 +368,7 @@ const ErrandDescriptionCard = ({ errand }) => {
                 src={"placeholder"}
                 className={classes.detailIcon}
               />
-              <Typography variant="p" color="textPrimary">
+              <Typography variant="body1" color="textPrimary">
                 {errand.quester.name}
               </Typography>
             </Grid>

@@ -30,8 +30,6 @@ const useMessages = () => {
   const [messages, setMessages] = useState([]);
   const [user] = useContext(UserContext);
 
-  console.log({ user: user._id });
-
   useEffect(() => {
     if (user._id) {
       axios
@@ -60,7 +58,7 @@ const MessagesCardWithoutInput = () => {
 
       <div className={classes.messages}>
         {messages.map((message) => (
-          <Message message={message} />
+          <Message key={message._id} message={message} />
         ))}
       </div>
     </Grid>

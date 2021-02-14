@@ -43,7 +43,7 @@ const Update = ({ update }) => {
           src={"placeholder"}
           className={classes.detailIcon}
         />
-        <Typography variant="p" color="textPrimary">
+        <Typography variant="body1" color="textPrimary">
           {update.text}
         </Typography>
       </Grid>

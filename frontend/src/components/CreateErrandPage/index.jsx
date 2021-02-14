@@ -59,7 +59,6 @@ const CreateErrandPage = () => {
           const { data: errand } = await axios.post("/api/errands", reqBody);
 
           setSubmitting(false);
-          console.log({ history });
           history.push(`/poster/errand/${errand._id}`);
         }}
       >
