@@ -1,14 +1,20 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   Link,
   TextField,
   Typography,
+  Snackbar,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
+import Alert from "@material-ui/lab/Alert";
 import React, { useContext, useState } from "react";
+import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
+import { addUser } from "../../actions/user";
 import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,24 +26,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const defaultFormUser = {
+  username: "",
+  name: "",
+  password: "",
+  age: "",
+  description: "",
+};
+
 const SignUp = () => {
   const classes = useStyles();
 
   const [user] = useContext(UserContext);
+  const history = useHistory();
 
   // State Management
-  const [formUser, setFormUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    age: "",
-    description: "",
+  const [formUser, setFormUser] = useState(defaultFormUser);
+  const [loading, setLoading] = useState(false);
+  const [displayAlert, setDisplayAlert] = useState(false);
+
+  // Query
+  const createUserMutation = useMutation((newUser) => addUser({ ...newUser }), {
+    onSuccess: () => {
+      handleSuccessfulTransaction();
+    },
+    onError: () => {
+      setLoading(false);
+    },
   });
+
+  const handleSuccessfulTransaction = () => {
+    createUserMutation.reset();
+    history.push("/login");
+    setFormUser(defaultFormUser);
+    setLoading(false);
+  };
 
   const hasErrors = () => {
     return (
       formUser.username.length === 0 ||
-      formUser.email.length === 0 ||
+      formUser.name.length === 0 ||
       formUser.password.length === 0 ||
       formUser.age.length === 0 ||
       formUser.description.length === 0
@@ -54,7 +82,8 @@ const SignUp = () => {
   const submitForm = (event) => {
     event.preventDefault();
     if (!hasErrors()) {
-      console.log(formUser);
+      createUserMutation.mutate({ ...formUser, age: parseInt(formUser.age) });
+      setLoading(true);
     }
   };
 
@@ -104,6 +133,22 @@ const SignUp = () => {
                 variant="outlined"
                 required
                 fullWidth
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                autoFocus
+                value={formUser.name}
+                onChange={onFormChange}
+                error={formUser.name.length === 0}
+              />
+            </Grid>
+
+            {/* <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
@@ -112,7 +157,7 @@ const SignUp = () => {
                 onChange={onFormChange}
                 error={formUser.email.length === 0}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12}>
               <TextField
@@ -162,15 +207,21 @@ const SignUp = () => {
 
           <Box m={1} pt={2}></Box>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
+          {loading ? (
+            <center>
+              <CircularProgress color="primary" />
+            </center>
+          ) : (
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+          )}
           <Box m={1} pt={1}></Box>
           <Grid container justify="flex-end">
             <Grid item>
@@ -181,6 +232,18 @@ const SignUp = () => {
           </Grid>
         </form>
       </div>
+
+      {/* Error Alert */}
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={displayAlert}
+        autoHideDuration={5000}
+        onClose={() => setDisplayAlert(false)}
+      >
+        <Alert variant="filled" severity="error">
+          Error: Failed to sign up. Please try again!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
