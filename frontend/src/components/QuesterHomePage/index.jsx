@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) =>
       minHeight: "100%",
     },
     third: {
-      width: "32%",
+      width: "33%",
     },
     half: {
       height: "49%",

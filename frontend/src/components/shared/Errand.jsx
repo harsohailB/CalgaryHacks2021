@@ -11,20 +11,16 @@ import { useHistory, useLocation } from "react-router-dom";
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
+      margin: "10px",
       padding: "10px",
       borderBottom: "1px solid #bbb",
       "&:hover": {
-        border: "none",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-        transform: "translate(-2px, -2px)",
+        backgroundColor: "#EBEBEB",
         transition: "all ease 0.5s",
         borderRadius: "7px",
         cursor: "pointer",
         "z-index": 100,
       },
-    },
-    header: {
-      marginBottom: "15px",
     },
     title: {
       fontSize: "1.2em",
@@ -101,23 +97,31 @@ const Errand = ({ errand }) => {
         <p className={classes.title}>{formatCurrency(23)}</p>
       </Grid>
 
+      <Grid container direction="row" justify="space-between">
+        {errand.expiryTime && (
+          <p className={classes.details}>
+            {new Date(errand.expiryTime).toLocaleTimeString()}
+          </p>
+        )}
+
+        {errand.startTime && (
+          <p className={classes.details}>
+            {`${new Date(errand.startTime).toLocaleTimeString()} - ${new Date(
+              errand.endTime
+            ).toLocaleTimeString()}`}
+          </p>
+        )}
+      </Grid>
+
       <Grid
         container
         direction="row"
         justify="space-between"
-        className={classes.header}
+        style={{ marginBottom: "10px" }}
       >
-        {errand.expiryTime ? (
-          <p className={classes.details}>
-            {errand.expiryTime.toLocaleString()}
-          </p>
-        ) : (
-          <p className={classes.details}>{}</p>
-        )}
         <p className={classes.details}>{errand.distance || "Virtual"} </p>
+        <div className={classes.status}>{errand.status.replace("_", " ")}</div>
       </Grid>
-
-      <div className={classes.status}>{errand.status}</div>
 
       <Typography variant="p" color="textPrimary">
         {errand.description}

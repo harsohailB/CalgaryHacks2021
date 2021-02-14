@@ -47,7 +47,7 @@ const PosterHomePage = () => {
     isLoading: availableErrandsLoading,
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
-  } = useQuery(["available_errands_quester"], () =>
+  } = useQuery(["available_errands_quester", user._id], () =>
     getAvailableErrandsForPoster(user._id)
   );
 

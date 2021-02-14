@@ -45,7 +45,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [displayAlert, setDisplayAlert] = useState(false);
 
-  // Query
+  // Mutation
   const createUserMutation = useMutation((newUser) => addUser({ ...newUser }), {
     onSuccess: () => {
       handleSuccessfulTransaction();
