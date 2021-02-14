@@ -47,7 +47,7 @@ const PosterHomePage = () => {
     isLoading: availableErrandsLoading,
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
-  } = useQuery(["available_errands_quester"], () =>
+  } = useQuery(["available_errands_poster"], () =>
     getAvailableErrandsForPoster(user._id)
   );
 
@@ -56,7 +56,7 @@ const PosterHomePage = () => {
     isLoading: acceptedErrandsLoading,
     isSuccess: acceptedErrandsSuccess,
     refetch: acceptedErrandsRefetch,
-  } = useQuery(["accepted_errands_quester", user._id], () =>
+  } = useQuery(["accepted_errands_poster"], () =>
     getAcceptedErrandsForPoster(user._id)
   );
 

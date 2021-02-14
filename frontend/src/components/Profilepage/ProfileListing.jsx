@@ -16,12 +16,12 @@ const useStyles = makeStyles((theme) =>
     textbox: {
       background: "#FFFFFF",
       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-      borderradius: "20px"
+      borderradius: "20px",
     },
     paddingbox: {
-        padding: "15px",
-        fontsize: "50px"
-    }
+      padding: "15px",
+      fontsize: "50px",
+    },
   })
 );
 
@@ -47,54 +47,87 @@ const ProfileListing = ({ pinfo }) => {
           src={"placeholder"}
           className={classes.detailIcon}
         />
-            <Typography variant="h6" color="textPrimary">
-                {pinfo.name}
-            </Typography>
-        </Grid>
-        <Grid
-            item
-            direction="row"
-            alignItems="center"
-            className={classes.paddingbox}
-            style={{ width: "50%", padding:"10px", fontsize:"50px"}}
-        >
-            <Typography variant="h6" color="textPrimary" padding="15px" fontsize="50px">
-                Address: {pinfo.address}
-            </Typography>
-        </Grid>
-        <Grid
-            item
-            direction="row"
-            alignItems="center"
-            style={{ width: "100%", padding:"10px"}}
-        >
-            <Typography variant="h6" color="textPrimary" padding="15px" font-weight="bold">
-                Email: {pinfo.email}
-            </Typography>
-        </Grid>
-        <Grid
-            item
-            direction="row"
-            alignItems="center"
-            style={{ width: "50%", padding:"10px" }}
-        >
-            <Typography variant="h6" color="textPrimary" padding="15px">
-                Age: {pinfo.Age}
-            </Typography>
-        </Grid>
-        <Grid
-            item
-            direction="row"
-            alignItems="center"
-            padding="15px"
-            style={{ width: "50%", padding:"10px" }}
-        >
-            <Typography variant="h6" color="textPrimary" padding="15px">
-                Rating: {pinfo.Rating}
-            </Typography>
-        </Grid>
+        <Typography variant="h6" color="textPrimary">
+          {pinfo.name}
+        </Typography>
       </Grid>
-
+      <Grid
+        item
+        direction="row"
+        alignItems="center"
+        className={classes.paddingbox}
+        style={{ width: "50%", padding: "10px", fontsize: "50px" }}
+      >
+        {/* <Typography
+          variant="h6"
+          color="textPrimary"
+          padding="15px"
+          fontsize="50px"
+        >
+          Address: {pinfo.address}
+        </Typography> */}
+      </Grid>
+      <Grid
+        item
+        direction="row"
+        alignItems="center"
+        className={classes.paddingbox}
+        style={{ width: "50%", padding: "10px", fontsize: "50px" }}
+      >
+        {/* <Typography
+          variant="h6"
+          color="textPrimary"
+          padding="15px"
+          fontsize="50px"
+        >
+          Address: {pinfo.address}
+        </Typography> */}
+      </Grid>
+      <Grid
+        item
+        direction="row"
+        alignItems="center"
+        style={{ width: "100%", padding: "10px" }}
+      >
+        {/* <Typography
+          variant="h6"
+          color="textPrimary"
+          padding="15px"
+          font-weight="bold"
+        >
+          Email: {pinfo.email}
+        </Typography> */}
+        <Typography
+          variant="p"
+          color="textPrimary"
+          padding="15px"
+          font-weight="bold"
+        >
+          Description: {pinfo.description}
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        direction="row"
+        alignItems="center"
+        style={{ width: "50%", padding: "10px" }}
+      >
+        <Typography variant="h6" color="textPrimary" padding="15px">
+          Age: {pinfo.age}
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        direction="row"
+        alignItems="center"
+        padding="15px"
+        style={{ width: "50%", padding: "10px" }}
+      >
+        {/* <Typography variant="h6" color="textPrimary" padding="15px">
+                Rating: {pinfo.Rating}
+            </Typography> */}
+      </Grid>
+    </Grid>
   );
 };
 
