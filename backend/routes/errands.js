@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Errand = mongoose.model("errands");
 const ErrandType = mongoose.model("errandTypes");
 const MessageThread = mongoose.model("messagethreads");
+const Address = mongoose.model("addresses");
 const Review = mongoose.model("reviews");
 const Application = mongoose.model("applications");
 
@@ -17,9 +18,11 @@ router.post("/", async function (req, res, next) {
     startTime,
     endTime,
     errandType,
+    address,
   } = req.body;
 
   const messageThread = await new MessageThread().save();
+  const createdAddress = await new Address(address).save();
 
   const errandInfo = {
     name,
@@ -31,6 +34,7 @@ router.post("/", async function (req, res, next) {
     messageThread: messageThread._id,
     status: "AVAILABLE",
     type: errandType,
+    address: createdAddress,
   };
 
   const result = await new Errand(errandInfo).save();
@@ -166,6 +170,17 @@ router.post("/quester/stage", async function (req, res, next) {
   }
   res.send({ errand });
 });
+
+router.post("/quester/in_progress", async function (req, res, next) {
+  const { errandId } = req.body;
+  const errand = await Errand.findById(errandId);
+  errand.status = "IN_PROGRESS";
+
+  await errand.save();
+  res.send({ errand });
+});
+
+module.exports = router;
 
 router.post("/quester/complete", async function (req, res, next) {
   const { errandId } = req.body;
