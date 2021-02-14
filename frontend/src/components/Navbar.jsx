@@ -1,4 +1,4 @@
-import { AppBar, Grid, Toolbar, Typography, Button, Link } from "@material-ui/core";
+import { AppBar, Grid, Toolbar, Typography, Button } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import React from "react";
@@ -58,6 +58,7 @@ const Navbar = () => {
 
             <Grid item>
               <Button
+                href="/login"
                 variant="contained"
                 size="medium"
                 color="primary"
