@@ -40,7 +40,7 @@ const ErrandsCard = ({ title, errands = [] }) => {
       {errands.length > 0 ? (
         <Grid item className={classes.errands}>
           {errands.map((errand) => (
-            <Errand errand={errand} />
+            <Errand key={errand._id} errand={errand} />
           ))}
         </Grid>
       ) : (

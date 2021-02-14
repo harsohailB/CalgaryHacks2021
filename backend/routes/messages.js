@@ -11,8 +11,6 @@ router.get("/all", async function (req, res, next) {
 
   const messages = await Message.find({ recipient: userId }).sort({ time: -1 }).populate('errand', 'name _id').populate('author');
 
-  console.log(messages.length ? messages[0] : null);
-
   res.send(messages);
 });
 
