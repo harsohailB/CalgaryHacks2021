@@ -6,6 +6,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import QuesterHomePage from "./components/QuesterHomePage";
 import ErrandPage from "./components/ErrandPage";
+import PosterHomePage from "./components/PosterHomePage";
 import SignUp from "./components/SignUp";
 import { LOGIN } from "./contexts/types";
 import { UserContext } from "./contexts/UserContext";
