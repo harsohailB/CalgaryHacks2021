@@ -14,6 +14,7 @@ import Link from "@material-ui/core/Link";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import ProfileMenu from "./ProfileMenu";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -25,6 +26,12 @@ const useStyles = makeStyles((theme) =>
     button: {
       minWidth: "100px",
     },
+    subtitle: {
+      fontSize: "1em",
+      fontWeight: "normal",
+      margin: "0",
+      color: theme.palette.text.secondary,
+    },
   })
 );
 
@@ -33,7 +40,13 @@ const Navbar = () => {
   const [role, setRole] = useState("");
 
   const [user] = useContext(UserContext);
-  console.log("user", user);
+  const siteType = useLocation().pathname.split("/")[1];
+  let subtitle = "";
+  if (siteType === "quester") {
+    subtitle = "Quester";
+  } else if (siteType === "poster") {
+    subtitle = "Poster";
+  }
 
   return (
     <AppBar position="static" elevation={0} className={classes.root}>
@@ -50,6 +63,7 @@ const Navbar = () => {
                 Errander
               </Link>
             </Typography>
+            <span className={classes.subtitle}>{subtitle}</span>
           </Grid>
 
           {user ? (
