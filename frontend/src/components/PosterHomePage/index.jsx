@@ -2,8 +2,7 @@ import React from "react";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ErrandsCard from "../QuesterHomePage/ErrandsCard";
-//import Message from "../ErrandPage/Message"
-import Message from "../shared/Message"
+import MessageCardWithoutInput from "../shared/MessageCardWithoutInput";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: "32%",
   },
   rightSide: {
-    width: "19%"
+    width: "19%",
   },
 }));
 
@@ -37,10 +36,10 @@ const PosterHomePage = () => {
         <ErrandsCard title="Accepted Errands" />
       </Grid>
       <Grid item className={classes.leftThird}>
-        <ErrandsCard title="Posted Errands" questerSelect={true}/>
+        <ErrandsCard title="Posted Errands" questerSelect={true} />
       </Grid>
       <Grid item className={classes.leftThird}>
-        <Message></Message>
+        <MessageCardWithoutInput />
       </Grid>
     </Grid>
   );
