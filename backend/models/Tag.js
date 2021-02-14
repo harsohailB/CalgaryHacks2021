@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const tag = new Schema({
-  id: String,
+  slug: String,
   text: String
 });
 
