@@ -46,18 +46,14 @@ const SignUp = () => {
   const [displayAlert, setDisplayAlert] = useState(false);
 
   // Query
-  const createUserMutation = useMutation(
-    (name, age, description, username, password) =>
-      addUser(name, age, description, username, password),
-    {
-      onSuccess: () => {
-        handleSuccessfulTransaction();
-      },
-      onError: () => {
-        setLoading(false);
-      },
-    }
-  );
+  const createUserMutation = useMutation((newUser) => addUser({ ...newUser }), {
+    onSuccess: () => {
+      handleSuccessfulTransaction();
+    },
+    onError: () => {
+      setLoading(false);
+    },
+  });
 
   const handleSuccessfulTransaction = () => {
     createUserMutation.reset();
@@ -86,13 +82,7 @@ const SignUp = () => {
   const submitForm = (event) => {
     event.preventDefault();
     if (!hasErrors()) {
-      createUserMutation.mutate(
-        formUser.name,
-        parseInt(formUser.age),
-        formUser.description,
-        formUser.username,
-        formUser.password
-      );
+      createUserMutation.mutate({ ...formUser, age: parseInt(formUser.age) });
       setLoading(true);
     }
   };
