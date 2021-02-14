@@ -56,12 +56,14 @@ const Map = () => {
         destination.latitude,
         destination.longitude
       ).then((fetchedDirection) => {
-        const stepCoords = fetchedDirection.routes[0].steps.map((step) => {
-          return {
-            lon: step.maneuver.location.coordinates[0],
-            lat: step.maneuver.location.coordinates[1],
-          };
-        });
+        const stepCoords = fetchedDirection.routes[0].geometry.coordinates.map(
+          (coordinate) => {
+            return {
+              lon: coordinate[0],
+              lat: coordinate[1],
+            };
+          }
+        );
         setDirectionsPoints(stepCoords);
         setViewport({
           ...viewport,
