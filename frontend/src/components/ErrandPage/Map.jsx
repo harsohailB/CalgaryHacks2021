@@ -10,7 +10,7 @@ import Route from "./Route";
 
 const mapStyles = {
   width: "100%",
-  height: "50%",
+  height: "100%",
   boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
   borderRadius: "7px",
   padding: "20px",

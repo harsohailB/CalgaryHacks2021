@@ -40,6 +40,7 @@ const sampleMessage = [
 const MessagesInputWithInput = ({ errand }) => {
   const classes = useStyles();
   const { messages, onSend } = useMessages(errand);
+  const recentMessages = messages.slice(messages.length - 6, messages.length);
   const [textField, setTextField] = useState("");
 
   const handleChange = (event) => {
