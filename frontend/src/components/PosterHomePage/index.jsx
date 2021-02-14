@@ -47,9 +47,11 @@ const PosterHomePage = () => {
     isLoading: availableErrandsLoading,
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
-  } = useQuery(["available_errands_quester", user._id], () =>
+  } = useQuery(["available_errands_poster", user._id], () =>
     getAvailableErrandsForPoster(user._id)
   );
+
+  console.log({ availableErrandsLoading, availableErrands });
 
   const {
     data: acceptedErrands,
@@ -84,7 +86,6 @@ const PosterHomePage = () => {
       tempErrands = [...tempErrands, ...acceptedErrands];
     }
     if (inProgressErrandsSuccess) {
-      console.log(inProgressErrands);
       tempErrands = [...tempErrands, ...inProgressErrands];
     }
     if (completedErrandsSuccess) {

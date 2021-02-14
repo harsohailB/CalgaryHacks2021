@@ -38,51 +38,44 @@ const useStyles = makeStyles((theme) =>
 );
 
 const Profile = ({ profile }) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const pic = "https://i2.wp.com/sclondon.ca/wp-content/uploads/2019/10/female-placeholder.jpg?ssl=1";
-  
-    return (
-      <Grid container direction="column" className={classes.root}>
-        <Grid
-            container
-            direction="column"
-        >
-            <Avatar
-              src={pic}
-              className={classes.detailIcon}
-            />
-            <p className={classes.title}>{profile.name}</p>
-            <Typography variant="p" color="textPrimary">
-            {profile.description}
-            </Typography>
-        </Grid>
+  const pic =
+    "https://i2.wp.com/sclondon.ca/wp-content/uploads/2019/10/female-placeholder.jpg?ssl=1";
 
-        <Grid
+  return (
+    <Grid container direction="column" className={classes.root}>
+      <Grid container direction="column">
+        <Avatar src={pic} className={classes.detailIcon} />
+        <p className={classes.title}>{profile.name}</p>
+        <Typography variant="body1" color="textPrimary">
+          {profile.description}
+        </Typography>
+      </Grid>
+
+      <Grid
         container
         direction="row"
         justify="flex-end"
         className={classes.footer}
-        >
+      >
         <Button
-            variant="contained"
-            className={classes.declineButton}
-            startIcon={<ClearIcon />}
+          variant="contained"
+          className={classes.declineButton}
+          startIcon={<ClearIcon />}
         >
-            Decline
+          Decline
         </Button>
         <Button
-            variant="contained"
-            className={classes.acceptButton}
-            startIcon={<CheckIcon />}
+          variant="contained"
+          className={classes.acceptButton}
+          startIcon={<CheckIcon />}
         >
-            Accept
+          Accept
         </Button>
-        </Grid>
-
       </Grid>
-    );
-  };
-  
-  export default Profile;
-  
+    </Grid>
+  );
+};
+
+export default Profile;

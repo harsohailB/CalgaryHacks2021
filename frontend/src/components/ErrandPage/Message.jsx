@@ -48,7 +48,7 @@ const MessageCardWithInput = ({ message }) => {
           src={"placeholder"}
           className={classes.detailIcon}
         />
-        <Typography variant="p" color="textPrimary">
+        <Typography variant="body1" color="textPrimary">
           {message.text}
         </Typography>
       </Grid>
