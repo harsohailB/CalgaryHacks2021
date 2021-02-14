@@ -6,7 +6,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 import formatCurrency from "../../utils/formatCurrency";
 import Tag from "./Tag";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -78,13 +78,14 @@ const Errand = ({ errand }) => {
   const classes = useStyles();
 
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <Grid
       container
       direction="column"
       className={classes.root}
-      onClick={() => history.push(`/errand/${errand._id}`)}
+      onClick={() => history.push(`${location.pathname}/errand/${errand._id}`)}
     >
       <Grid container direction="row" justify="space-between">
         <p className={classes.title}>{errand.name}</p>

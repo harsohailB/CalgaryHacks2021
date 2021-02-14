@@ -14,7 +14,7 @@ import Login from "./components/Login";
 import history from "./utils/history";
 import SelectQuesterPage from "./components/SelectQuesterPage";
 import CreateErrandpage from "./components/CreateErrandPage";
-import ProfileHomePage from "./components/Profilepage"
+import ProfileHomePage from "./components/Profilepage";
 
 const LandingPage = lazy(() => import("./components/LandingPage"));
 
@@ -43,7 +43,8 @@ const App = () => {
           <Route path="/signup" exact component={SignUp} />
           <Route path="/poster" exact component={PosterHomePage} />
           <Route path="/quester" exact component={QuesterHomePage} />
-          <Route path="/errand/:id" exact component={ErrandPage} />
+          <Route path="/poster/errand/:id" exact component={ErrandPage} />
+          <Route path="/quester/errand/:id" exact component={ErrandPage} />
           <Route path="/profile/:id" exact component={ProfileHomePage} />
           <Route path="/" exact component={LandingPage} />
         </Switch>
