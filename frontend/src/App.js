@@ -5,6 +5,7 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import QuesterHomePage from "./components/QuesterHomePage";
 import PosterHomePage from "./components/PosterHomePage";
+import SignUp from "./components/SignUp";
 const LandingPage = lazy(() => import("./components/LandingPage"));
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
 
       <Suspense fallback={<LinearProgress />}>
         <Switch>
+          <Route path="/signup" exact component={SignUp} />
           <Route path="/poster" exact component={PosterHomePage} />
           <Route path="/quester" exact component={QuesterHomePage} />
           <Route path="/" exact component={LandingPage} />

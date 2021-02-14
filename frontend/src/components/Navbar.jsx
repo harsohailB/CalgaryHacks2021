@@ -1,4 +1,4 @@
-import { AppBar, Grid, Toolbar, Typography, Button } from "@material-ui/core";
+import { AppBar, Grid, Toolbar, Typography, Button, Link } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import React from "react";
 
@@ -25,7 +25,7 @@ const Navbar = () => {
           <Grid container item xs={3} alignItems="flex-end">
             <Typography variant="h3" color="textPrimary">
               Errander
-            </Typography>
+            </Typography> 
           </Grid>
 
           <Grid
@@ -38,6 +38,7 @@ const Navbar = () => {
           >
             <Grid item>
               <Button
+                href="/signup"
                 variant="outlined"
                 size="medium"
                 color="primary"
