@@ -111,7 +111,7 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
         ))}
       </Grid>
 
-      {available && (
+      {/* {available && (
         <Grid
           container
           direction="row"
@@ -142,7 +142,7 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
         ) : (
           <div />
         )}
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };
