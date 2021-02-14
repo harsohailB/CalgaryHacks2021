@@ -6,13 +6,22 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 import formatCurrency from "../../utils/formatCurrency";
 import Tag from "./Tag";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      paddingTop: "10px",
-      paddingBottom: "10px",
+      padding: "10px",
       borderBottom: "1px solid #bbb",
+      "&:hover": {
+        border: "none",
+        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
+        transform: "translate(-2px, -2px)",
+        transition: "all ease 0.5s",
+        borderRadius: "7px",
+        cursor: "pointer",
+        "z-index": 100,
+      },
     },
     header: {
       marginBottom: "15px",
@@ -61,15 +70,22 @@ const useStyles = makeStyles((theme) =>
         borderColor: "#0062cc",
         boxShadow: "none",
       },
-    }
+    },
   })
 );
 
-const Errand = ({ errand, available, questerSelect, numApplicants}) => {
+const Errand = ({ errand, available, questerSelect, numApplicants }) => {
   const classes = useStyles();
 
+  const history = useHistory();
+
   return (
-    <Grid container direction="column" className={classes.root}>
+    <Grid
+      container
+      direction="column"
+      className={classes.root}
+      onClick={() => history.push("/errand/1")}
+    >
       <Grid container direction="row" justify="space-between">
         <p className={classes.title}>{errand.name}</p>
         <p className={classes.title}>{formatCurrency(errand.price)}</p>
@@ -119,14 +135,13 @@ const Errand = ({ errand, available, questerSelect, numApplicants}) => {
         </Grid>
       )}
       <Grid container direction="row" justify="flex-end">
-      {questerSelect 
-      ? <Button
-            variant="contained"
-            className={classes.selectButton}
-        >
+        {questerSelect ? (
+          <Button variant="contained" className={classes.selectButton}>
             Select Quester ({numApplicants})
-        </Button>
-      : <div />}
+          </Button>
+        ) : (
+          <div />
+        )}
       </Grid>
     </Grid>
   );
