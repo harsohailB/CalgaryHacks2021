@@ -65,7 +65,7 @@ const ErrandPage = ({ id }) => {
 
       <Grid container className={classes.twoThirds} direction="column">
         <Grid className={classes.card}>
-          <Map />
+          <Map errandAddress={errand.address} />
         </Grid>
 
         <Grid

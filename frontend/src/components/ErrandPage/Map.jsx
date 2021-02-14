@@ -16,7 +16,7 @@ const mapStyles = {
   padding: "20px",
 };
 
-const Map = () => {
+const Map = ({ errandAddress }) => {
   const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
   const [viewport, setViewport] = useState({
     latitude: 51.0447,
@@ -27,10 +27,7 @@ const Map = () => {
   });
 
   const [currentLocation, setCurrentLocation] = useState();
-  const [destination, setDestination] = useState({
-    latitude: 51.159521,
-    longitude: -114.049419,
-  });
+  const [destination, setDestination] = useState(errandAddress);
   const [directionsPoints, setDirectionsPoints] = useState([]);
 
   useEffect(() => {
