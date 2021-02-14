@@ -59,27 +59,37 @@ const Message = ({ message }) => {
         alignItems="center"
         style={{ width: "70%" }}
       >
-        <Grid item>
-          <Avatar
-            alt={message.name}
-            src={"placeholder"}
-            className={classes.detailIcon}
-          />
-        </Grid>
+        {message.author && (
+          <Grid item>
+            <Avatar
+              alt={message.author.name}
+              src={"placeholder"}
+              className={classes.detailIcon}
+            />
+          </Grid>
+        )}
 
         <Grid container direction="column" style={{ width: "80%" }}>
           <Typography variant="body1" color="textPrimary">
             {message.text}
           </Typography>
-          <Typography variant="body1" color="black" className={classes.detail}>
-            {message.errandName}
-          </Typography>
+          {message.errand && (
+            <Typography
+              variant="body1"
+              color="black"
+              className={classes.detail}
+            >
+              {message.errand.name}
+            </Typography>
+          )}
         </Grid>
       </Grid>
 
-      <Grid item>
-        <p className={classes.time}>{message.time.toLocaleTimeString()}</p>
-      </Grid>
+      {message.time && (
+        <Grid item>
+          <p className={classes.time}>{message.time.toLocaleTimeString()}</p>
+        </Grid>
+      )}
     </Grid>
   );
 };

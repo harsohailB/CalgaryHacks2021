@@ -16,7 +16,9 @@ const sampleErrand = {
   description:
     "Sample description here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat... ",
   tags: ["Delivery", "Urgent"],
-  posterName: "Poster Poster",
+  poster: {
+    name: "Poster Poster",
+  },
   address: "2839 University Drive",
 };
 
@@ -63,7 +65,7 @@ const ErrandPage = ({ id }) => {
 
       <Grid container className={classes.twoThirds} direction="column">
         <Grid className={classes.card}>
-        <Map />
+          <Map />
         </Grid>
 
         <Grid
