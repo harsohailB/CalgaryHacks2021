@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   leftThird: {
     width: "32%",
   },
-  rightSide: {
-    width: "19%",
+  rightThird: {
+    width: "30%",
+    height: "90%",
   },
 }));
 
@@ -39,7 +40,7 @@ const PosterHomePage = () => {
       <Grid item className={classes.leftThird}>
         <ErrandsCard title="Posted Errands" questerSelect={true} />
       </Grid>
-      <Grid item className={classes.leftThird}>
+      <Grid item className={classes.rightThird}>
         <Message></Message>
       </Grid>
     </Grid>
