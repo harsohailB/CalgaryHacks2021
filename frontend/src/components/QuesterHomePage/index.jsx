@@ -8,6 +8,8 @@ import { UserContext } from "../../contexts/UserContext";
 import {
   getAcceptedErrandsForQuester,
   getAvailableErrandsForQuester,
+  getInProgressErrandsForQuester,
+  getCompletedErrandsForQuester,
 } from "../../actions/errands";
 
 const useStyles = makeStyles((theme) =>
@@ -36,6 +38,7 @@ const QuesterHomePage = () => {
 
   // State Management
   const [pendingErrands, setPendingErrands] = useState([]);
+  const [todoErrands, setTodoErrands] = useState([]);
 
   // Queries
   const {
@@ -44,7 +47,7 @@ const QuesterHomePage = () => {
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
   } = useQuery(["available_errands_quester"], () =>
-    getAvailableErrandsForQuester(user.id)
+    getAvailableErrandsForQuester(user._id)
   );
 
   const {
@@ -54,6 +57,24 @@ const QuesterHomePage = () => {
     refetch: acceptedErrandsRefetch,
   } = useQuery(["accepted_errands_quester", user._id], () =>
     getAcceptedErrandsForQuester(user._id)
+  );
+
+  const {
+    data: inProgressErrands,
+    isLoading: inProgressErrandsLoading,
+    isSuccess: inProgressErrandsSuccess,
+    refetch: inProgressErrandsRefetch,
+  } = useQuery(["inProgress_errands_quester", user._id], () =>
+    getInProgressErrandsForQuester(user._id)
+  );
+
+  const {
+    data: completedErrands,
+    isLoading: completedErrandsLoading,
+    isSuccess: completedErrandsSuccess,
+    refetch: completedErrandsRefetch,
+  } = useQuery(["completed_errands_quester", user._id], () =>
+    getCompletedErrandsForQuester(user._id)
   );
 
   useEffect(() => {
@@ -67,6 +88,20 @@ const QuesterHomePage = () => {
             )
         )
       );
+
+      let tempTodoErrands = [];
+      if (acceptedErrandsSuccess) {
+        tempTodoErrands = [...acceptedErrands];
+      }
+      if (inProgressErrandsSuccess) {
+        console.log(inProgressErrands);
+        tempTodoErrands = [...tempTodoErrands, ...inProgressErrands];
+      }
+      if (completedErrandsSuccess) {
+        tempTodoErrands = [...tempTodoErrands, ...completedErrands];
+      }
+
+      setTodoErrands(tempTodoErrands);
     }
   }, [availableErrands]);
 
@@ -81,7 +116,7 @@ const QuesterHomePage = () => {
         {acceptedErrandsLoading ? (
           <CircularProgress color="primary" />
         ) : (
-          <ErrandsCard title="To Do Errands" errands={acceptedErrands} />
+          <ErrandsCard title="To Do Errands" errands={todoErrands} />
         )}
       </Grid>
       <Grid item className={classes.third}>

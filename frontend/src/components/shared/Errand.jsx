@@ -71,6 +71,15 @@ const useStyles = makeStyles((theme) =>
         boxShadow: "none",
       },
     },
+    status: {
+      fontSize: "12px",
+      marginBottom: "5px",
+      backgroundColor: "#35CD99",
+      width: "fit-content",
+      padding: "5px",
+      textAlign: "center",
+      borderRadius: "10px",
+    },
   })
 );
 
@@ -107,6 +116,8 @@ const Errand = ({ errand }) => {
         )}
         <p className={classes.details}>{errand.distance || "Virtual"} </p>
       </Grid>
+
+      <div className={classes.status}>{errand.status}</div>
 
       <Typography variant="p" color="textPrimary">
         {errand.description}

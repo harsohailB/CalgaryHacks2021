@@ -17,6 +17,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import {
   posterAcceptQuesterForErrand,
   questerApplyForErrand,
+  questerMoveErrandToComplete,
+  questerMoveErrandToInProgress,
 } from "../../actions/errands";
 import Alert from "@material-ui/lab/Alert";
 import { useMutation } from "react-query";
@@ -130,6 +132,30 @@ const ErrandDescriptionCard = ({ errand }) => {
     }
   );
 
+  const moveErrandToInProgressMutation = useMutation(
+    (errandId) => questerMoveErrandToInProgress(errandId),
+    {
+      onSuccess: () => {
+        handleSuccessfulStageErrand();
+      },
+      onError: () => {
+        setDisplayAlert(true);
+      },
+    }
+  );
+
+  const moveErrandToCompleteMutation = useMutation(
+    (errandId) => questerMoveErrandToComplete(errandId),
+    {
+      onSuccess: () => {
+        handleSuccessfulCompleteErrand();
+      },
+      onError: () => {
+        setDisplayAlert(true);
+      },
+    }
+  );
+
   const acceptErrand = () => {
     acceptErrandMutation.mutate({ questerId: user._id, errandId: errand._id });
   };
@@ -142,6 +168,16 @@ const ErrandDescriptionCard = ({ errand }) => {
   const handleSuccessfulApplicationAccept = () => {
     acceptErrandApplicationMutation.reset();
     history.push("/poster");
+  };
+
+  const handleSuccessfulStageErrand = () => {
+    moveErrandToInProgressMutation.reset();
+    history.push("/quester");
+  };
+
+  const handleSuccessfulCompleteErrand = () => {
+    moveErrandToCompleteMutation.reset();
+    history.push("/quester");
   };
 
   const renderApplications = () => {
@@ -342,11 +378,13 @@ const ErrandDescriptionCard = ({ errand }) => {
         // Quester
 
         <div>
-          {alreadyAppliedForErrand ? (
+          {alreadyAppliedForErrand && errand.status === "AVAILABLE" && (
             <Typography variant="h6" color="textPrimary">
               Application Submitted
             </Typography>
-          ) : (
+          )}
+
+          {!alreadyAppliedForErrand && errand.status === "AVAILABLE" && (
             <Grid
               container
               direction="row"
@@ -371,6 +409,44 @@ const ErrandDescriptionCard = ({ errand }) => {
               </Button>
             </Grid>
           )}
+
+          {errand.status === "ACCEPTED" && (
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              className={classes.footer}
+            >
+              <Button
+                variant="contained"
+                className={classes.acceptButton}
+                startIcon={<CheckIcon />}
+                onClick={() =>
+                  moveErrandToInProgressMutation.mutate(errand._id)
+                }
+              >
+                Step to In Progress
+              </Button>
+            </Grid>
+          )}
+
+          {errand.status === "IN_PROGRESS" && (
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              className={classes.footer}
+            >
+              <Button
+                variant="contained"
+                className={classes.acceptButton}
+                startIcon={<CheckIcon />}
+                onClick={() => moveErrandToCompleteMutation.mutate(errand._id)}
+              >
+                Mark as Completed
+              </Button>
+            </Grid>
+          )}
         </div>
       )}
 
@@ -387,7 +463,7 @@ const ErrandDescriptionCard = ({ errand }) => {
           </Alert>
         ) : (
           <Alert variant="filled" severity="error">
-            Error: Errand application failed. Try again!
+            Error: Errand change failed. Try again!
           </Alert>
         )}
       </Snackbar>

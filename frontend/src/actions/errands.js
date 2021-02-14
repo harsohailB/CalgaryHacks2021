@@ -23,7 +23,35 @@ export const getAcceptedErrandsForQuester = async (userId) => {
 
   if (response.status !== 200) {
     throw (
-      "getAcceptedErrandsForQuester failed with error code " + response.status
+      "getAvailableErrandsForQuester failed with error code " + response.status
+    );
+  }
+
+  return response.data.errands;
+};
+
+export const getInProgressErrandsForQuester = async (userId) => {
+  const body = { questerId: userId, status: "IN_PROGRESS" };
+
+  const response = await axios.get("/api/errands/quester", { params: body });
+
+  if (response.status !== 200) {
+    throw (
+      "getAvailableErrandsForQuester failed with error code " + response.status
+    );
+  }
+
+  return response.data.errands;
+};
+
+export const getCompletedErrandsForQuester = async (userId) => {
+  const body = { questerId: userId, status: "COMPLETED" };
+
+  const response = await axios.get("/api/errands/quester", { params: body });
+
+  if (response.status !== 200) {
+    throw (
+      "getAvailableErrandsForQuester failed with error code " + response.status
     );
   }
 
@@ -37,6 +65,34 @@ export const questerApplyForErrand = async ({ questerId, errandId }) => {
 
   if (response.status !== 200) {
     throw "questerAcceptErrand failed with error code " + response.status;
+  }
+
+  return response.data;
+};
+
+export const questerMoveErrandToInProgress = async (errandId) => {
+  const body = { errandId };
+
+  const response = await axios.post("/api/errands/quester/in_progress", {
+    ...body,
+  });
+
+  if (response.status !== 200) {
+    throw "questerStageErrand failed with error code " + response.status;
+  }
+
+  return response.data;
+};
+
+export const questerMoveErrandToComplete = async (errandId) => {
+  const body = { errandId };
+
+  const response = await axios.post("/api/errands/quester/complete", {
+    ...body,
+  });
+
+  if (response.status !== 200) {
+    throw "questerStageErrand failed with error code " + response.status;
   }
 
   return response.data;
