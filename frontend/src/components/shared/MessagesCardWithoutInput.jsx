@@ -14,6 +14,11 @@ const useStyles = makeStyles((theme) =>
       borderRadius: "7px",
       padding: "20px",
       backgroundColor: theme.palette.background.default,
+      display: "flex",
+    },
+    messages: {
+      overflowY: "scroll",
+      flex: "1 1",
     },
     title: {
       marginBottom: "20px",
@@ -25,10 +30,12 @@ const useMessages = () => {
   const [messages, setMessages] = useState([]);
   const [user] = useContext(UserContext);
 
+  console.log({ user: user._id });
+
   useEffect(() => {
     if (user._id) {
       axios
-        .get("/api/messages/all", { userId: user._id })
+        .get("/api/messages/all", { params: { userId: user._id } })
         .then((res) => setMessages(res.data));
     }
   }, [user._id]);
@@ -51,9 +58,11 @@ const MessagesCardWithoutInput = () => {
         Messages
       </Typography>
 
-      {messages.map((message) => (
-        <Message message={message} />
-      ))}
+      <div className={classes.messages}>
+        {messages.map((message) => (
+          <Message message={message} />
+        ))}
+      </div>
     </Grid>
   );
 };

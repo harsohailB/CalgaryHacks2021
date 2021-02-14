@@ -1,7 +1,7 @@
 import { Avatar, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme) =>
       fontWeight: "normal",
       margin: "0",
       color: theme.palette.text.secondary,
+      fontStyle: "italic",
     },
   })
 );
@@ -42,53 +43,51 @@ const useStyles = makeStyles((theme) =>
 const Message = ({ message }) => {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <Grid
       container
-      direction="row"
-      justify="space-between"
-      alignItems="center"
+      direction="column"
+      justify="flex-start"
       className={classes.root}
-      onClick={() => history.push("/errand/1")}
+      onClick={() =>
+        history.push(`${location.pathname}/errand/${message.errand._id}`)
+      }
     >
       <Grid
         container
         item
         direction="row"
         alignItems="center"
-        style={{ width: "70%" }}
+        justifyContent="space-between"
+        style={{ width: "100%", marginBottom: "8px" }}
       >
         {message.author && (
-          <Grid item>
+          <>
             <Avatar
               alt={message.author.name}
               src={"placeholder"}
               className={classes.detailIcon}
             />
+            {message.author.name}
+          </>
+        )}
+        {message.time && (
+          <Grid item>
+            <p className={classes.time}>
+              {new Date(message.time).toLocaleTimeString()}
+            </p>
           </Grid>
         )}
-
-        <Grid container direction="column" style={{ width: "80%" }}>
-          <Typography variant="body1" color="textPrimary">
-            {message.text}
-          </Typography>
-          {message.errand && (
-            <Typography
-              variant="body1"
-              color="black"
-              className={classes.detail}
-            >
-              {message.errand.name}
-            </Typography>
-          )}
-        </Grid>
       </Grid>
-
-      {message.time && (
-        <Grid item>
-          <p className={classes.time}>{message.time.toLocaleTimeString()}</p>
-        </Grid>
+      <Typography variant="body1" color="textPrimary">
+        {message.text}
+      </Typography>
+      {message.errand && (
+        <Typography variant="body1" className={classes.detail}>
+          {message.errand.name}
+        </Typography>
       )}
     </Grid>
   );

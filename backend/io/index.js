@@ -23,7 +23,9 @@ const initializeSocket = socket => {
     const { text, errandId, userId } = data;
 
     const errand = await Errand.findById(errandId);
-    const recipientId = errand.poster._id === userId ? errand.quester._id : errand.poster._id;
+
+    const recipientId = errand.poster._id == userId ? errand.quester._id : errand.poster._id;
+
     const newMessage = await new Message({ text, author: userId, recipient: recipientId, time: new Date(), errand: errandId }).save();
     errand.messageThread.messages.push(newMessage._id);
     await errand.messageThread.save();

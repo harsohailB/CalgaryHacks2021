@@ -12,8 +12,6 @@ router.post('/', async function (req, res, next) {
   delete newUser.username;
   delete newUser.password;
 
-  console.log(typeof newUser, { newUser }, newUser.username, newUser.password)
-
   res.send(newUser);
 });
 
