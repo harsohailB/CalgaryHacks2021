@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme) =>
       margin: "0",
       color: theme.palette.text.secondary,
     },
+    errands: {
+      maxHeight: "90%",
+      overflowY: "scroll",
+    },
   })
 );
 
@@ -34,7 +38,7 @@ const ErrandsCard = ({ title, errands = [] }) => {
       </Typography>
 
       {errands.length > 0 ? (
-        <Grid item>
+        <Grid item className={classes.errands}>
           {errands.map((errand) => (
             <Errand errand={errand} />
           ))}

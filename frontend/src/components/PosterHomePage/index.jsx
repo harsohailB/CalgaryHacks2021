@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, CircularProgress, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ErrandsCard from "../QuesterHomePage/ErrandsCard";
@@ -7,6 +7,8 @@ import Message from "../shared/MessagesCardWithoutInput";
 import {
   getAcceptedErrandsForPoster,
   getAvailableErrandsForPoster,
+  getCompletedErrandsForPoster,
+  getInProgressErrandsForPoster,
 } from "../../actions/errands";
 import { useQuery } from "react-query";
 import { UserContext } from "../../contexts/UserContext";
@@ -34,6 +36,10 @@ const PosterHomePage = () => {
   const classes = useStyles();
 
   const [user] = useContext(UserContext);
+  const [
+    acceptedInProgressCompletedErrands,
+    setAcceptedInProgressCompletedErrands,
+  ] = useState([]);
 
   // Queries
   const {
@@ -54,6 +60,40 @@ const PosterHomePage = () => {
     getAcceptedErrandsForPoster(user._id)
   );
 
+  const {
+    data: inProgressErrands,
+    isLoading: inProgressErrandsLoading,
+    isSuccess: inProgressErrandsSuccess,
+    refetch: inProgressErrandsRefetch,
+  } = useQuery(["inProgress_errands_quester", user._id], () =>
+    getInProgressErrandsForPoster(user._id)
+  );
+
+  const {
+    data: completedErrands,
+    isLoading: completedErrandsLoading,
+    isSuccess: completedErrandsSuccess,
+    refetch: completedErrandsRefetch,
+  } = useQuery(["completed_errands_quester", user._id], () =>
+    getCompletedErrandsForPoster(user._id)
+  );
+
+  useEffect(() => {
+    let tempErrands = [];
+    if (acceptedErrandsSuccess) {
+      tempErrands = [...tempErrands, ...acceptedErrands];
+    }
+    if (inProgressErrandsSuccess) {
+      console.log(inProgressErrands);
+      tempErrands = [...tempErrands, ...inProgressErrands];
+    }
+    if (completedErrandsSuccess) {
+      tempErrands = [...tempErrands, ...completedErrands];
+    }
+
+    setAcceptedInProgressCompletedErrands(tempErrands);
+  }, [acceptedErrands, inProgressErrands, completedErrands]);
+
   return (
     <Grid
       container
@@ -65,7 +105,10 @@ const PosterHomePage = () => {
         {acceptedErrandsLoading ? (
           <CircularProgress color="primary" />
         ) : (
-          <ErrandsCard title="Accepted Errands" errands={acceptedErrands} />
+          <ErrandsCard
+            title="Accepted Errands"
+            errands={acceptedInProgressCompletedErrands}
+          />
         )}
       </Grid>
       <Grid item className={classes.leftThird}>
