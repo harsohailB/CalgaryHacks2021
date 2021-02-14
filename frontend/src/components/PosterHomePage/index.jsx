@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
     height: "90vh",
-    maxHeight: "88vh",
+    maxHeight: "90vh",
     marginTop: "10px",
   },
   mid: {
@@ -47,7 +47,7 @@ const PosterHomePage = () => {
     isLoading: availableErrandsLoading,
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
-  } = useQuery(["available_errands_poster"], () =>
+  } = useQuery(["available_errands_quester", user._id], () =>
     getAvailableErrandsForPoster(user._id)
   );
 

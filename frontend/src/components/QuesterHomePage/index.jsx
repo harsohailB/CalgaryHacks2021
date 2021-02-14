@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) =>
     root: {
       maxWidth: "100vw",
       height: "90vh",
-      maxHeight: "88vh",
+      maxHeight: "90vh",
       marginTop: "10px",
       minHeight: "100%",
     },
     third: {
-      width: "32%",
+      width: "33%",
     },
     half: {
       height: "49%",
