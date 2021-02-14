@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandsCard from "./ErrandsCard";
@@ -35,6 +35,7 @@ const QuesterHomePage = () => {
   const [user] = useContext(UserContext);
 
   // State Management
+  const [pendingErrands, setPendingErrands] = useState([]);
 
   // Queries
   const {
@@ -51,9 +52,23 @@ const QuesterHomePage = () => {
     isLoading: acceptedErrandsLoading,
     isSuccess: acceptedErrandsSuccess,
     refetch: acceptedErrandsRefetch,
-  } = useQuery(["accepted_errands_quester"], () =>
-    getAcceptedErrandsForQuester(user.id)
+  } = useQuery(["accepted_errands_quester", user._id], () =>
+    getAcceptedErrandsForQuester(user._id)
   );
+
+  useEffect(() => {
+    if (availableErrandsSuccess) {
+      setPendingErrands(
+        availableErrands.filter(
+          (errand) =>
+            errand.status === "AVAILABLE" &&
+            errand.applications.some(
+              (application) => application.quester._id === user._id
+            )
+        )
+      );
+    }
+  }, [availableErrands]);
 
   return (
     <Grid
@@ -84,7 +99,7 @@ const QuesterHomePage = () => {
         className={classes.third}
       >
         <Grid item className={classes.half}>
-          <ErrandsCard title="Pending Errands" errands={[]} />
+          <ErrandsCard title="Pending Errands" errands={pendingErrands} />
         </Grid>
         <Grid item className={classes.half}>
           <MessagesCardWithoutInput />

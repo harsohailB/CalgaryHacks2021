@@ -21,32 +21,15 @@ const useStyles = makeStyles((theme) =>
       margin: "0",
       color: theme.palette.text.secondary,
     },
+    errands: {
+      maxHeight: "90%",
+      overflowY: "scroll",
+    },
   })
 );
 
 const ErrandsCard = ({ title, errands }) => {
   const classes = useStyles();
-
-  const sampleErrands = [
-    {
-      name: "Gift Delivery",
-      price: 15,
-      startDateTime: null,
-      endDateTime: new Date(),
-      distance: 2.65,
-      description: "Delivery my valentines gift to my BF plz",
-      tags: ["Delivery", "Urgent"],
-    },
-    {
-      name: "Math 275 Tutoring",
-      price: 10,
-      startDateTime: new Date(),
-      endDateTime: new Date(),
-      distance: null,
-      description: "Be my elsabrouty",
-      tags: ["Delivery", "Urgent", "Tutoring"],
-    },
-  ];
 
   return (
     <Grid container direction="column" className={classes.root}>
@@ -55,7 +38,7 @@ const ErrandsCard = ({ title, errands }) => {
       </Typography>
 
       {errands.length > 0 ? (
-        <Grid item>
+        <Grid item className={classes.errands}>
           {errands.map((errand) => (
             <Errand errand={errand} />
           ))}

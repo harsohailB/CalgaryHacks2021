@@ -98,10 +98,12 @@ const Errand = ({ errand }) => {
         justify="space-between"
         className={classes.header}
       >
-        {errand.expiryTime && (
+        {errand.expiryTime ? (
           <p className={classes.details}>
             {errand.expiryTime.toLocaleString()}
           </p>
+        ) : (
+          <p className={classes.details}>{}</p>
         )}
         <p className={classes.details}>{errand.distance || "Virtual"} </p>
       </Grid>

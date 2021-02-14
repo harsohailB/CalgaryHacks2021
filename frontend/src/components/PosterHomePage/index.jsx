@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, CircularProgress, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ErrandsCard from "../QuesterHomePage/ErrandsCard";
@@ -41,8 +41,8 @@ const PosterHomePage = () => {
     isLoading: availableErrandsLoading,
     isSuccess: availableErrandsSuccess,
     refetch: availableErrandsRefetch,
-  } = useQuery(["available_errands_poster"], () =>
-    getAvailableErrandsForPoster(user.id)
+  } = useQuery(["available_errands_poster", user._id], () =>
+    getAvailableErrandsForPoster(user._id)
   );
 
   const {
@@ -50,8 +50,8 @@ const PosterHomePage = () => {
     isLoading: acceptedErrandsLoading,
     isSuccess: acceptedErrandsSuccess,
     refetch: acceptedErrandsRefetch,
-  } = useQuery(["accepted_errands_poster"], () =>
-    getAcceptedErrandsForPoster(user.id)
+  } = useQuery(["accepted_errands_poster", user._id], () =>
+    getAcceptedErrandsForPoster(user._id)
   );
 
   return (

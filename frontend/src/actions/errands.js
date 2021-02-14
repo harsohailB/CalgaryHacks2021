@@ -30,6 +30,18 @@ export const getAcceptedErrandsForQuester = async (userId) => {
   return response.data.errands;
 };
 
+export const questerApplyForErrand = async ({ questerId, errandId }) => {
+  const body = { questerId, errandId };
+
+  const response = await axios.post("/api/errands/quester/apply", { ...body });
+
+  if (response.status !== 200) {
+    throw "questerAcceptErrand failed with error code " + response.status;
+  }
+
+  return response.data;
+};
+
 // POSTER ERRANDS
 
 export const getAvailableErrandsForPoster = async (userId) => {
@@ -58,4 +70,18 @@ export const getAcceptedErrandsForPoster = async (userId) => {
   }
 
   return response.data.errands;
+};
+
+export const posterAcceptQuesterForErrand = async (applicationId) => {
+  const body = { applicationId };
+
+  const response = await axios.post("/api/errands/poster/accept", { ...body });
+
+  if (response.status !== 200) {
+    throw (
+      "posterAcceptQuesterForErrand failed with error code " + response.status
+    );
+  }
+
+  return response.data;
 };
