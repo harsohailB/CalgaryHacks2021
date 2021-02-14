@@ -13,6 +13,7 @@ import { UserContext } from "./contexts/UserContext";
 import Login from "./components/Login";
 import history from "./utils/history";
 import SelectQuesterPage from "./components/SelectQuesterPage";
+import CreateErrandpage from "./components/CreateErrandPage";
 import ProfileHomePage from "./components/Profilepage"
 
 const LandingPage = lazy(() => import("./components/LandingPage"));
@@ -36,6 +37,7 @@ const App = () => {
 
       <Suspense fallback={<LinearProgress />}>
         <Switch>
+          <Route path="/create" exact component={CreateErrandpage} />
           <Route path="/select" exact component={SelectQuesterPage} />
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={SignUp} />
