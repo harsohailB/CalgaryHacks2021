@@ -34,3 +34,16 @@ export const loginUser = async (username, password) => {
 
   return { type: LOGIN, payload: response.data };
 };
+
+export const addReview = async (postTime, rating, body) => {
+  const body = { postTime, rating, body };
+
+  const response = await axios.post("/api/user", { ...body });
+
+  if (response.status !== 200) {
+    throw "Review failed with error code " + response.status;
+  }
+
+  // update store with user info if successfully registered
+  return response.data;
+};
