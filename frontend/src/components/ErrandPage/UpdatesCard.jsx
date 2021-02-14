@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) =>
 
 const sampleUpdates = [
   {
-    name: "Quester",
+    name: "Errander",
     text: "Starting Task",
     time: new Date(),
   },
   {
-    name: "Quester",
+    name: "Errander",
     text: "Completed Task",
     time: new Date(),
   },
@@ -36,11 +36,7 @@ const UpdatesCard = () => {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      direction="column"
-      className={classes.root}
-    >
+    <Grid container direction="column" className={classes.root}>
       <Typography variant="h6" color="textPrimary" className={classes.title}>
         Updates
       </Typography>

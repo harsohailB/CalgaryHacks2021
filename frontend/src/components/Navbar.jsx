@@ -45,7 +45,7 @@ const Navbar = () => {
   const siteType = useLocation().pathname.split("/")[1];
   let subtitle = "";
   if (siteType === "quester") {
-    subtitle = "Quester";
+    subtitle = "Errander";
   } else if (siteType === "poster") {
     subtitle = "Poster";
   }
@@ -93,7 +93,7 @@ const Navbar = () => {
                   disabled={role === "quester"}
                   onClick={() => setRole("quester")}
                 >
-                  Quester
+                  Errander
                 </Button>
               </Grid>
 

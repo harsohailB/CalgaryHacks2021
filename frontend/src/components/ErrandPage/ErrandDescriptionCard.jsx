@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) =>
       fontWeight: "normal",
       margin: "0",
       color: theme.palette.text.secondary,
+      flex: 1,
     },
     detailIcon: {
       marginRight: "10px",
