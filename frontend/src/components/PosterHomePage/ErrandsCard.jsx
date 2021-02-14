@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const ErrandsCard = ({ title, questerSelect}) => {
+const ErrandsCard = ({ title }) => {
   const classes = useStyles();
   const available = title === "Available Errands";
 
@@ -50,7 +50,7 @@ const ErrandsCard = ({ title, questerSelect}) => {
       </Typography>
 
       {sampleErrands.map((errand) => (
-        <Errand errand={errand} available={available} questerSelect={questerSelect}/>
+        <Errand errand={errand} available={available} />
       ))}
     </Grid>
   );

@@ -4,6 +4,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandDescriptionCard from "./ErrandDescriptionCard";
 import Map from "./Map";
 import UpdatesCard from "./UpdatesCard";
+import Message from "./Message"
 
 const sampleErrand = {
   name: "Gift Delivery",
@@ -61,7 +62,7 @@ const ErrandPage = ({ id }) => {
           <UpdatesCard />
 
           {/* to be replace with messages regarding errand */}
-          <UpdatesCard />
+          <Message />
         </Grid>
       </Grid>
     </Grid>
