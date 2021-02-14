@@ -50,10 +50,12 @@ router.get("/", async function (req, res, next) {
   res.send(errand);
 });
 
-router.post("/", async function (req, res, next) {
-  const { postTime, rating, body } = req.body;
+router.post("/review", async function (req, res, next) {
+  const { postTime, rating, body, errandid } = req.body;
   const newReview = (await new Review({ postTime, rating, body }).save()).toObject();
-
+  const errand = await Errand.findById(errandid);
+  errand.review = newReview._id;
+  await errand.save();
   res.send(newReview);
 })
 

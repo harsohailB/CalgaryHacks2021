@@ -36,9 +36,9 @@ export const loginUser = async (username, password) => {
 };
 
 export const addReview = async (postTime, rating, bodya) => {
-  const body = { postTime, rating, bodya };
+  const body = { postTime, rating, bodya, id};
 
-  const response = await axios.post("/api/user", { ...body });
+  const response = await axios.post("api/errands/reviews", { ...body });
 
   if (response.status !== 200) {
     throw "Review failed with error code " + response.status;
