@@ -36,6 +36,7 @@ const sampleMessage = [
 const MessagesInputWithInput = ({ errand }) => {
   const classes = useStyles();
   const { messages, onSend } = useMessages(errand);
+  const recentMessages = messages.slice(messages.length - 6, messages.length);
   const [textField, setTextField] = useState("");
 
   const handleChange = (event) => {
@@ -53,7 +54,7 @@ const MessagesInputWithInput = ({ errand }) => {
         Messages
       </Typography>
 
-      {messages.map((message) => (
+      {recentMessages.map((message) => (
         <MessageBox message={message} errand={errand} />
       ))}
 

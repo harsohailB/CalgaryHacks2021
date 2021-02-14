@@ -40,7 +40,6 @@ const UpdatesCard = () => {
       container
       direction="column"
       className={classes.root}
-      justify="space-between"
     >
       <Typography variant="h6" color="textPrimary" className={classes.title}>
         Updates
