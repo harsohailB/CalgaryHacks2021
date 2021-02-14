@@ -6,10 +6,13 @@ import {
   Link,
   TextField,
   Typography,
+  Snackbar,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
+import Alert from "@material-ui/lab/Alert";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { loginUser } from "../../actions/user";
 import { LOGIN } from "../../contexts/types";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -22,15 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Temporary User
-const tempUser = {
-  id: "temp",
-  name: "Harsohail Brar",
-  age: 21,
-  rating: 8.2,
-  description: "Software Engineering Student",
-};
-
 const Login = () => {
   const classes = useStyles();
 
@@ -42,6 +36,7 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [displayAlert, setDisplayAlert] = useState(false);
 
   const hasErrors = () => {
     return formUser.username.length === 0 || formUser.password.length === 0;
@@ -57,8 +52,14 @@ const Login = () => {
   const submitForm = (event) => {
     event.preventDefault();
     if (!hasErrors()) {
-      dispatchToUser({ type: LOGIN, payload: tempUser });
-      history.push("/");
+      loginUser(formUser.username, formUser.password)
+        .then((fetchedUser) => {
+          dispatchToUser(fetchedUser);
+          history.push("/");
+        })
+        .catch((err) => {
+          setDisplayAlert(true);
+        });
     }
   };
 
@@ -127,6 +128,18 @@ const Login = () => {
           </Button>
         </form>
       </div>
+
+      {/* Error Alert */}
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={displayAlert}
+        autoHideDuration={5000}
+        onClose={() => setDisplayAlert(false)}
+      >
+        <Alert variant="filled" severity="error">
+          Error: Unable to login with given credentials. Try again!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
