@@ -11,6 +11,7 @@ var debug = require('debug')('app');
 
 // models go here
 require("./models/User");
+require("./models/Application");
 require("./models/ErrandStage");
 require("./models/ErrandType");
 require("./models/Errand");
