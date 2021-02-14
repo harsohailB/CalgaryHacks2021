@@ -244,17 +244,6 @@ const ErrandDescriptionCard = ({ errand }) => {
           )}
         </Grid>
 
-        <Grid
-          container
-          direction="row"
-          justify="space-between"
-          className={classes.header}
-        >
-          <p className={classes.details}>
-            {errand.distance ? errand.distance + " km" : "Virtual"}
-          </p>
-        </Grid>
-
         <Typography variant="body1" color="textPrimary">
           {errand.description}
         </Typography>
