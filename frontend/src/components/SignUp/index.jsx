@@ -8,7 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignUp = () => {
   const classes = useStyles();
+
+  const [user] = useContext(UserContext);
 
   // State Management
   const [formUser, setFormUser] = useState({
@@ -55,7 +58,16 @@ const SignUp = () => {
     }
   };
 
-  return (
+  return user ? (
+    <Container component="main" maxWidth="sm" marginTop="20%">
+      <Box m={5} pt={2}></Box>
+      <center>
+        <Typography variant="h3" color="textPrimary">
+          You are already logged in!
+        </Typography>
+      </center>
+    </Container>
+  ) : (
     <Container component="main" maxWidth="sm" marginTop="20%">
       <Box m={5} pt={2}></Box>
       <center>

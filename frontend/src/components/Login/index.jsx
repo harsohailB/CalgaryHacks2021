@@ -8,7 +8,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { LOGIN } from "../../contexts/types";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,8 +22,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignUp = () => {
+// Temporary User
+const tempUser = {
+  id: "temp",
+  name: "Harsohail Brar",
+  age: 21,
+  rating: 8.2,
+  description: "Software Engineering Student",
+};
+
+const Login = () => {
   const classes = useStyles();
+
+  const [user, dispatchToUser] = useContext(UserContext);
+  const history = useHistory();
 
   // State Management
   const [formUser, setFormUser] = useState({
@@ -42,11 +57,21 @@ const SignUp = () => {
   const submitForm = (event) => {
     event.preventDefault();
     if (!hasErrors()) {
-      console.log(formUser);
+      dispatchToUser({ type: LOGIN, payload: tempUser });
+      history.push("/");
     }
   };
 
-  return (
+  return user ? (
+    <Container component="main" maxWidth="sm" marginTop="20%">
+      <Box m={5} pt={2}></Box>
+      <center>
+        <Typography variant="h3" color="textPrimary">
+          You are already logged in!
+        </Typography>
+      </center>
+    </Container>
+  ) : (
     <Container component="main" maxWidth="sm" marginTop="20%">
       <Box m={5} pt={2}></Box>
       <center>
@@ -106,4 +131,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

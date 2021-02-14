@@ -13,6 +13,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import ProfileMenu from "./ProfileMenu";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -31,14 +32,8 @@ const Navbar = () => {
   const classes = useStyles();
   const [role, setRole] = useState("");
 
-  // Temporary User
-  const user = {
-    id: "temp",
-    name: "Harsohail Brar",
-    age: 21,
-    rating: 8.2,
-    description: "Software Engineering Student",
-  };
+  const [user] = useContext(UserContext);
+  console.log("user", user);
 
   return (
     <AppBar position="static" elevation={0} className={classes.root}>
@@ -93,20 +88,7 @@ const Navbar = () => {
                 </Button>
               </Grid>
 
-              <Grid item>
-                <Link
-                  href={`/profile/${user.name}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Tooltip placement="bottom" title="Edit Profile">
-                    <Avatar alt={user.name} src="placeholder" />
-                  </Tooltip>
-                </Link>
-              </Grid>
-
-              <Typography variant="p" color="textPrimary">
-                {user.name}
-              </Typography>
+              <ProfileMenu />
             </Grid>
           ) : (
             <Grid

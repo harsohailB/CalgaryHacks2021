@@ -8,6 +8,8 @@ export const UserContext = createContext();
 // if null, then not logged in
 const initialState = false;
 function reducer(state, action) {
+  console.log("action", action);
+  console.log("state", state);
   switch (action.type) {
     case types.LOGIN:
       ls.set("user", action.payload);
