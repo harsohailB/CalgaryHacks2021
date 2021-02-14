@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Errand = mongoose.model("errands");
 const ErrandType = mongoose.model("errandTypes");
 const MessageThread = mongoose.model("messageThreads");
+const Review = mongoose.model("review");
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
@@ -36,6 +37,13 @@ router.post("/", async function (req, res, next) {
 
   res.send(newErrand);
 });
+
+router.post("/", async function(req, res, next) {
+  const {postTime, rating, body} = req.body;
+  const newReview = (await new Review({postTime, rating, body}).save()).toObject();
+
+  res.send(newReview);
+})
 
 router.get("/poster/all", async function (req, res, next) {
   const { posterId } = req.query;
