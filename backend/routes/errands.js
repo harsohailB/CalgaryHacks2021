@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Errand = mongoose.model("errands");
 const ErrandType = mongoose.model("errandTypes");
 const MessageThread = mongoose.model("messagethreads");
+const Review = mongoose.model("review");
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
@@ -49,8 +50,15 @@ router.get("/", async function (req, res, next) {
   res.send(errand);
 });
 
+router.post("/", async function(req, res, next) {
+  const {postTime, rating, body} = req.body;
+  const newReview = (await new Review({postTime, rating, body}).save()).toObject();
+
+  res.send(newReview);
+})
+
 router.get("/poster/all", async function (req, res, next) {
-  const { posterId } = req.body;
+  const { posterId } = req.query;
 
   const errands = await Errand.find({ poster: posterId })
     .populate("poster")
@@ -61,7 +69,7 @@ router.get("/poster/all", async function (req, res, next) {
 });
 
 router.get("/poster", async function (req, res, next) {
-  const { posterId, status } = req.body;
+  const { posterId, status } = req.query;
 
   const params = { poster: posterId };
   if (status) params.status = status;
@@ -75,7 +83,7 @@ router.get("/poster", async function (req, res, next) {
 });
 
 router.get("/quester", async function (req, res, next) {
-  const { questerId, status } = req.body;
+  const { questerId, status } = req.query;
 
   const params = { quester: questerId };
   if (status) params.status = status;
