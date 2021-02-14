@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import ReactMapGL from "react-map-gl";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import DriveEtaIcon from "@material-ui/icons/DriveEta";
+import { getDirections } from "../../actions/directions";
+import Route from "./Route";
 
 const mapStyles = {
   width: "100%",
@@ -29,6 +31,7 @@ const Map = () => {
     latitude: 51.159521,
     longitude: -114.049419,
   });
+  const [directionsPoints, setDirectionsPoints] = useState([]);
 
   useEffect(() => {
     // Sets map to your current location
@@ -44,6 +47,30 @@ const Map = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    if (currentLocation && destination) {
+      getDirections(
+        currentLocation.latitude,
+        currentLocation.longitude,
+        destination.latitude,
+        destination.longitude
+      ).then((fetchedDirection) => {
+        const stepCoords = fetchedDirection.routes[0].steps.map((step) => {
+          return {
+            lon: step.maneuver.location.coordinates[0],
+            lat: step.maneuver.location.coordinates[1],
+          };
+        });
+        setDirectionsPoints(stepCoords);
+        setViewport({
+          ...viewport,
+          latitude: stepCoords[0].lat,
+          longitude: stepCoords[0].lon,
+        });
+      });
+    }
+  }, [currentLocation, destination]);
 
   return (
     <ReactMapGL
@@ -79,6 +106,14 @@ const Map = () => {
             <LocationOnIcon color="secondary" />
           </Tooltip>
         </Marker>
+      )}
+
+      {directionsPoints.length > 0 && (
+        <Route
+          viewport={viewport}
+          mapStyles={mapStyles}
+          points={directionsPoints}
+        />
       )}
     </ReactMapGL>
   );
