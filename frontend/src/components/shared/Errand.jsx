@@ -6,7 +6,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 import formatCurrency from "../../utils/formatCurrency";
 import Tag from "./Tag";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -74,21 +74,22 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Errand = ({ errand, available, questerSelect, numApplicants }) => {
+const Errand = ({ errand }) => {
   const classes = useStyles();
 
   const history = useHistory();
+  const location = useLocation();
 
   return (
     <Grid
       container
       direction="column"
       className={classes.root}
-      onClick={() => history.push("/errand/1")}
+      onClick={() => history.push(`${location.pathname}/errand/${errand._id}`)}
     >
       <Grid container direction="row" justify="space-between">
         <p className={classes.title}>{errand.name}</p>
-        <p className={classes.title}>{formatCurrency(errand.price)}</p>
+        <p className={classes.title}>{formatCurrency(23)}</p>
       </Grid>
 
       <Grid
@@ -97,8 +98,12 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
         justify="space-between"
         className={classes.header}
       >
-        <p className={classes.details}>{errand.endDateTime.toLocaleString()}</p>
-        <p className={classes.details}>{errand.distance || "Virtual"} km</p>
+        {errand.expiryTime && (
+          <p className={classes.details}>
+            {errand.expiryTime.toLocaleString()}
+          </p>
+        )}
+        <p className={classes.details}>{errand.distance || "Virtual"} </p>
       </Grid>
 
       <Typography variant="p" color="textPrimary">

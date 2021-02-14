@@ -1,9 +1,15 @@
-import React from "react";
-import { Button, Grid } from "@material-ui/core";
+import React, { useContext } from "react";
+import { Button, CircularProgress, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ErrandsCard from "../QuesterHomePage/ErrandsCard";
 //import Message from "../ErrandPage/Message"
 import Message from "../shared/MessagesCardWithoutInput";
+import {
+  getAcceptedErrandsForPoster,
+  getAvailableErrandsForPoster,
+} from "../../actions/errands";
+import { useQuery } from "react-query";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +33,27 @@ const useStyles = makeStyles((theme) => ({
 const PosterHomePage = () => {
   const classes = useStyles();
 
+  const [user] = useContext(UserContext);
+
+  // Queries
+  const {
+    data: availableErrands,
+    isLoading: availableErrandsLoading,
+    isSuccess: availableErrandsSuccess,
+    refetch: availableErrandsRefetch,
+  } = useQuery(["available_errands_poster"], () =>
+    getAvailableErrandsForPoster(user.id)
+  );
+
+  const {
+    data: acceptedErrands,
+    isLoading: acceptedErrandsLoading,
+    isSuccess: acceptedErrandsSuccess,
+    refetch: acceptedErrandsRefetch,
+  } = useQuery(["accepted_errands_poster"], () =>
+    getAcceptedErrandsForPoster(user.id)
+  );
+
   return (
     <Grid
       container
@@ -35,10 +62,18 @@ const PosterHomePage = () => {
       className={classes.root}
     >
       <Grid item className={classes.leftThird}>
-        <ErrandsCard title="Accepted Errands" />
+        {acceptedErrandsLoading ? (
+          <CircularProgress color="primary" />
+        ) : (
+          <ErrandsCard title="Accepted Errands" errands={acceptedErrands} />
+        )}
       </Grid>
       <Grid item className={classes.leftThird}>
-        <ErrandsCard title="Posted Errands" questerSelect={true} />
+        {availableErrandsLoading ? (
+          <CircularProgress color="primary" />
+        ) : (
+          <ErrandsCard title="Posted Errands" errands={availableErrands} />
+        )}
       </Grid>
       <Grid item className={classes.rightThird}>
         <Message></Message>
