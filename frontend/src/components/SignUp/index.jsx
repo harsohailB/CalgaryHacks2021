@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,6 +22,39 @@ const useStyles = makeStyles((theme) => ({
 const SignUp = () => {
   const classes = useStyles();
 
+  // State Management
+  const [formUser, setFormUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    age: "",
+    description: "",
+  });
+
+  const hasErrors = () => {
+    return (
+      formUser.username.length === 0 ||
+      formUser.email.length === 0 ||
+      formUser.password.length === 0 ||
+      formUser.age.length === 0 ||
+      formUser.description.length === 0
+    );
+  };
+
+  const onFormChange = (event) => {
+    setFormUser({
+      ...formUser,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    if (!hasErrors()) {
+      console.log(formUser);
+    }
+  };
+
   return (
     <Container component="main" maxWidth="sm" marginTop="20%">
       <Box m={5} pt={2}></Box>
@@ -31,7 +64,12 @@ const SignUp = () => {
         </Typography>
       </center>
       <div className={classes.paper}>
-        <form className={classes.form} noValidate paddingTop={10}>
+        <form
+          className={classes.form}
+          noValidate
+          paddingTop={10}
+          onSubmit={submitForm}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -43,6 +81,9 @@ const SignUp = () => {
                 name="username"
                 autoComplete="username"
                 autoFocus
+                value={formUser.username}
+                onChange={onFormChange}
+                error={formUser.username.length === 0}
               />
             </Grid>
 
@@ -54,7 +95,10 @@ const SignUp = () => {
                 id="email"
                 label="Email Address"
                 name="email"
+                type="email"
                 autoComplete="email"
+                onChange={onFormChange}
+                error={formUser.email.length === 0}
               />
             </Grid>
 
@@ -68,6 +112,8 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={onFormChange}
+                error={formUser.password.length === 0}
               />
             </Grid>
 
@@ -81,6 +127,8 @@ const SignUp = () => {
                 type="number"
                 id="age"
                 autoComplete="current-age"
+                onChange={onFormChange}
+                error={formUser.age.length === 0}
               />
             </Grid>
 
@@ -94,6 +142,8 @@ const SignUp = () => {
                 type="text"
                 id="description"
                 autoComplete="current-description"
+                onChange={onFormChange}
+                error={formUser.description.length === 0}
               />
             </Grid>
           </Grid>

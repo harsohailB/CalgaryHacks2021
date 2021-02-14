@@ -19,7 +19,7 @@ export const loginUser = async (username, password) => {
   const body = { username, password };
 
   // register user to database
-  const response = await axios.get(config.endpoint + "users/login", {
+  const response = await axios.get(config.endpoint + "auth", {
     params: body,
   });
 
