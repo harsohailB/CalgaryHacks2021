@@ -42,6 +42,7 @@ const SignUp= () => {
                         label="Username"
                         name="username"
                         autoComplete="username"
+                        autoFocus
                     />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -53,7 +54,6 @@ const SignUp= () => {
                         fullWidth
                         id="firstName"
                         label="First Name"
-                        autoFocus
                     />
                     </Grid>
                     <Grid item xs={12} sm={6}>
