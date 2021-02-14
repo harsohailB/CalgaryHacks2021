@@ -14,6 +14,7 @@ const theme = createMuiTheme({
     },
     background: {
       default: "#FFFFFF",
+      secondary: "#EBEBEB",
     },
   },
   typography: {
@@ -33,6 +34,13 @@ const theme = createMuiTheme({
     h5: {
       fontSize: "1.5em",
       fontWeight: "lighter",
+    },
+    h6: {
+      fontSize: "1.5em",
+      fontWeight: "bold",
+    },
+    h7: {
+      fontSize: "1.3em",
     },
     p: {
       fontSize: "1em",
