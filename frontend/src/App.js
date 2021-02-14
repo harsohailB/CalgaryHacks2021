@@ -1,14 +1,29 @@
 import { Route, Switch, BrowserRouter } from "react-router-dom";
-import React, { Suspense, lazy } from "react";
+import React, { useEffect, useContext, Suspense, lazy } from "react";
 import { LinearProgress } from "@material-ui/core";
+import ls from "local-storage";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import QuesterHomePage from "./components/QuesterHomePage";
 import PosterHomePage from "./components/PosterHomePage";
 import SignUp from "./components/SignUp";
+import { LOGIN } from "./contexts/types";
+import { UserContext } from "./contexts/UserContext";
 const LandingPage = lazy(() => import("./components/LandingPage"));
 
 const App = () => {
+  const [user, dispatchToUser] = useContext(UserContext);
+
+  useEffect(() => {
+    // if nothing, check localstorage to see if user is saved
+    const userFromLocalStorage = ls.get("user");
+    if (userFromLocalStorage) {
+      dispatchToUser({ type: LOGIN, payload: userFromLocalStorage });
+    } else {
+      dispatchToUser({ type: LOGIN, payload: null });
+    }
+  }, [dispatchToUser]);
+
   return (
     <BrowserRouter>
       <Navbar />
