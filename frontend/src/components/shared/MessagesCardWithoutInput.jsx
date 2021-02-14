@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>
 
 const useMessages = () => {
   const [messages, setMessages] = useState([]);
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   useEffect(() => {
     if (user._id) {

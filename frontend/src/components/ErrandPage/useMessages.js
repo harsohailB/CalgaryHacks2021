@@ -5,7 +5,7 @@ import { UserContext } from '../../contexts/UserContext';
 const useMessages = (errand) => {
   const [messages, setMessages] = useState([]);
   const socket = useContext(SocketContext);
-  const user = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   const onJoin = useCallback(() => {
     socket.emit('join', errand._id);
