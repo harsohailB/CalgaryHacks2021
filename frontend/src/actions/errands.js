@@ -3,7 +3,7 @@ import axios from "axios";
 // QUESTER ERRANDS
 
 export const getAvailableErrandsForQuester = async (userId) => {
-  const body = { questerId: "60289d135c35857b89d5eab4", status: "AVAILABLE" };
+  const body = { questerId: userId, status: "AVAILABLE" };
 
   const response = await axios.get("/api/errands/quester", { params: body });
 
@@ -17,7 +17,7 @@ export const getAvailableErrandsForQuester = async (userId) => {
 };
 
 export const getAcceptedErrandsForQuester = async (userId) => {
-  const body = { questerId: "60289d135c35857b89d5eab4", status: "ACCEPTED" };
+  const body = { questerId: userId, status: "ACCEPTED" };
 
   const response = await axios.get("/api/errands/quester", { params: body });
 
@@ -33,7 +33,7 @@ export const getAcceptedErrandsForQuester = async (userId) => {
 // POSTER ERRANDS
 
 export const getAvailableErrandsForPoster = async (userId) => {
-  const body = { posterId: "6028996eb2f064789c0230a4", status: "AVAILABLE" };
+  const body = { posterId: userId, status: "AVAILABLE" };
 
   const response = await axios.get("/api/errands/poster", { params: body });
 
@@ -47,7 +47,7 @@ export const getAvailableErrandsForPoster = async (userId) => {
 };
 
 export const getAcceptedErrandsForPoster = async (userId) => {
-  const body = { posterId: "6028996eb2f064789c0230a4", status: "ACCEPTED" };
+  const body = { posterId: userId, status: "ACCEPTED" };
 
   const response = await axios.get("/api/errands/poster", { params: body });
 
