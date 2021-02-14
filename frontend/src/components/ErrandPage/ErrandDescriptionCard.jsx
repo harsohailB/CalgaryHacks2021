@@ -8,6 +8,7 @@ import {
   Snackbar,
   IconButton,
 } from "@material-ui/core";
+import Rating from "@material-ui/lab/Rating";
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
 import MapIcon from "@material-ui/icons/Map";
@@ -340,6 +341,10 @@ const ErrandDescriptionCard = ({ errand }) => {
             <Grid container direction="column">
               {renderApplications()}
             </Grid>
+          )}
+
+          {errand.status === "COMPLETED" && (
+            <Rating name="pristine" value={null} />
           )}
 
           {errand.applications.length === 0 && errand.status === "AVAILABLE" && (
