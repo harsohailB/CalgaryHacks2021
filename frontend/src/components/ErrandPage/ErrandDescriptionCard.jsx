@@ -213,9 +213,6 @@ const ErrandDescriptionCard = ({ errand }) => {
           justify="space-between"
           className={classes.header}
         >
-          {errand.endTime && (
-            <p className={classes.details}>{errand.endTime.toLocaleString()}</p>
-          )}
           <p className={classes.details}>
             {errand.distance ? errand.distance + " km" : "Virtual"}
           </p>
@@ -226,6 +223,31 @@ const ErrandDescriptionCard = ({ errand }) => {
         </Typography>
 
         <Grid container style={{ marginTop: "20px" }}>
+          {errand.startTime && (
+            <Grid container item>
+              <p className={classes.details}>
+                <strong>Start Time: </strong>
+                {new Date(errand.startTime).toLocaleTimeString()}
+              </p>
+            </Grid>
+          )}
+          {errand.endTime && (
+            <Grid container item>
+              <p className={classes.details}>
+                <strong>End Time: </strong>
+                {new Date(errand.endTime).toLocaleTimeString()}
+              </p>
+            </Grid>
+          )}
+          {errand.expiryTime && (
+            <Grid container item>
+              <p className={classes.details}>
+                <strong>Expiry Time: </strong>
+                {new Date(errand.expiryTime).toLocaleTimeString()}
+              </p>
+            </Grid>
+          )}
+
           {errand.poster && (
             <Grid
               container
@@ -289,6 +311,12 @@ const ErrandDescriptionCard = ({ errand }) => {
           {errand.applications.length > 0 && errand.status === "AVAILABLE" && (
             <Grid container direction="column">
               {renderApplications()}
+            </Grid>
+          )}
+
+          {errand.applications.length === 0 && errand.status === "AVAILABLE" && (
+            <Grid container direction="column" className={classes.detail}>
+              <p>You have no applications yet.</p>
             </Grid>
           )}
 
