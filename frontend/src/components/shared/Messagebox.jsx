@@ -49,13 +49,13 @@ const Messagebox = ({ message }) => {
           src={"placeholder"}
           className={classes.detailIcon}
         />
-        <Typography variant="p" color="textPrimary">
+        <Typography variant="body1" color="textPrimary">
           {message.name}
         </Typography>
-        <Typography variant="p" color="black" className={classes.textmes}>
-          {message.text}
-        </Typography>
       </Grid>
+      <Typography variant="body2" color="black" className={classes.textmes}>
+    {message.text}
+    </Typography>
 
       <Grid item>
         <p className={classes.time}>{message.time.toLocaleString()}</p>

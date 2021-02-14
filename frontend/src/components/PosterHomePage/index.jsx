@@ -36,10 +36,10 @@ const PosterHomePage = () => {
       <Grid item className={classes.leftThird}>
         <ErrandsCard title="Accepted Errands" />
       </Grid>
-      <Grid item className={classes.mid}>
+      <Grid item className={classes.leftThird}>
         <ErrandsCard title="Posted Errands" questerSelect={true}/>
       </Grid>
-      <Grid item className={classes.rightSide}>
+      <Grid item className={classes.leftThird}>
         <Message></Message>
       </Grid>
     </Grid>

@@ -49,10 +49,10 @@ const Messagebox = ({ message }) => {
           src={"placeholder"}
           className={classes.detailIcon}
         />
-        <Typography variant="p" color="textPrimary">
-          {message.name}
+        <Typography variant="body1" color="textPrimary">
+          {message.name} <br></br>
         </Typography>
-        <Typography variant="p" color="black" className={classes.textmes}>
+        <Typography variant="body2" color="black" className={classes.textmes}>
           {message.text}
         </Typography>
       </Grid>
