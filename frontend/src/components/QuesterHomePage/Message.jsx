@@ -6,13 +6,12 @@ import MessageBox from "./Messagebox";
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      width: "48%",
-      height: "100%",
+      width: "100%",
+      height: "48%",
       boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
       borderRadius: "7px",
       padding: "20px",
       backgroundColor: theme.palette.background.default,
-      
     },
     title: {
       marginBottom: "20px",
@@ -43,8 +42,8 @@ const sampleMessage = [
     time: new Date(),
   },
   {
-    name: "Yani",
-    text: "Memes",
+    name: "Dr. Moshipour",
+    text: "Processing",
     time: new Date(),
   },
 ];
@@ -57,7 +56,7 @@ const Message = () => {
       container
       direction="column"
       className={classes.root}
-      justify="space-between"
+      justify="flex-start"
   
     >
       <Typography variant="h6" color="textPrimary" className={classes.title}>
@@ -68,11 +67,6 @@ const Message = () => {
         <MessageBox message={message} />
       ))}
 
-      <TextField
-        className={classes.textbox}
-        label="Type to chat..."
-      >
-      </TextField>
     </Grid>
   );
 };
