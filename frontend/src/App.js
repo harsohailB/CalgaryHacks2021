@@ -11,6 +11,7 @@ import SignUp from "./components/SignUp";
 import { LOGIN } from "./contexts/types";
 import { UserContext } from "./contexts/UserContext";
 import Login from "./components/Login";
+import history from "./utils/history";
 import SelectQuesterPage from "./components/SelectQuesterPage";
 
 const LandingPage = lazy(() => import("./components/LandingPage"));
@@ -29,7 +30,7 @@ const App = () => {
   }, [dispatchToUser]);
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={history}>
       <Navbar />
 
       <Suspense fallback={<LinearProgress />}>

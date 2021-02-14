@@ -1,118 +1,188 @@
-import { Box, Button, Container, Grid, Link, TextField, Typography} from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import React from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        height: "100%",
-        boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: "7px",
-        padding: "20px",
-        backgroundColor: theme.palette.background.default,
-    },
-    paper: {
-      marginTop: theme.spacing(2),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-  }));
+  paper: {
+    marginTop: theme.spacing(2),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+}));
 
-const SignUp= () => {
-    const classes = useStyles();
+const SignUp = () => {
+  const classes = useStyles();
 
+  const [user] = useContext(UserContext);
+
+  // State Management
+  const [formUser, setFormUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    age: "",
+    description: "",
+  });
+
+  const hasErrors = () => {
     return (
-        <Container component="main" maxWidth="sm" marginTop="20%">
-            <Box m={5} pt={2}></Box>
-            <div className={classes.paper, classes.root}>
-                <center>
-                <Typography variant="h3" color="textPrimary">
-                Sign Up
-                </Typography>
-                </center>
-                <form className={classes.form} noValidate paddingTop={10}>
-                <Box m={1} pt={1}></Box>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="username"
-                        label="Username"
-                        name="username"
-                        autoComplete="username"
-                        autoFocus
-                    />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        autoComplete="fname"
-                        name="firstName"
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="firstName"
-                        label="First Name"
-                    />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        autoComplete="lname"
-                    />
-                    </Grid>
-                    <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                    />
-                    </Grid>
-                    <Grid item xs={12}>
-                    <TextField
-                        variant="outlined"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                    />
-                    </Grid>
-                </Grid>
-                <Box m={1} pt={2}></Box>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                >
-                    Sign Up
-                </Button>
-                <Box m={1} pt={1}></Box>
-                <Grid container justify="flex-end">
-                    <Grid item>
-                    <Link href="/login" variant="body1">
-                        Already signed up? Sign in here
-                    </Link>
-                    </Grid>
-                </Grid>
-                </form>
-            </div>
-        </Container>
+      formUser.username.length === 0 ||
+      formUser.email.length === 0 ||
+      formUser.password.length === 0 ||
+      formUser.age.length === 0 ||
+      formUser.description.length === 0
     );
-}
+  };
+
+  const onFormChange = (event) => {
+    setFormUser({
+      ...formUser,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const submitForm = (event) => {
+    event.preventDefault();
+    if (!hasErrors()) {
+      console.log(formUser);
+    }
+  };
+
+  return user ? (
+    <Container component="main" maxWidth="sm" marginTop="20%">
+      <Box m={5} pt={2}></Box>
+      <center>
+        <Typography variant="h3" color="textPrimary">
+          You are already logged in!
+        </Typography>
+      </center>
+    </Container>
+  ) : (
+    <Container component="main" maxWidth="sm" marginTop="20%">
+      <Box m={5} pt={2}></Box>
+      <center>
+        <Typography variant="h3" color="textPrimary">
+          Sign Up
+        </Typography>
+      </center>
+      <div className={classes.paper}>
+        <form
+          className={classes.form}
+          noValidate
+          paddingTop={10}
+          onSubmit={submitForm}
+        >
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
+                autoFocus
+                value={formUser.username}
+                onChange={onFormChange}
+                error={formUser.username.length === 0}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                type="email"
+                autoComplete="email"
+                onChange={onFormChange}
+                error={formUser.email.length === 0}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={onFormChange}
+                error={formUser.password.length === 0}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="age"
+                label="Age"
+                type="number"
+                id="age"
+                autoComplete="current-age"
+                onChange={onFormChange}
+                error={formUser.age.length === 0}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                name="description"
+                label="Description"
+                type="text"
+                id="description"
+                autoComplete="current-description"
+                onChange={onFormChange}
+                error={formUser.description.length === 0}
+              />
+            </Grid>
+          </Grid>
+
+          <Box m={1} pt={2}></Box>
+
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
+            Sign Up
+          </Button>
+          <Box m={1} pt={1}></Box>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/login" variant="body1">
+                Already signed up? Sign in here
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
+    </Container>
+  );
+};
 
 export default SignUp;
