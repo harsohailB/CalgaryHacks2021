@@ -307,7 +307,9 @@ const ErrandDescriptionCard = ({ errand }) => {
             className={classes.detailField}
           >
             <MapIcon className={classes.detailIcon} color="secondary" />
-            <p className={classes.details}>{errand.address || "Virtual"}</p>
+            <p className={classes.details}>
+              {errand.address ? errand.address.title : "Virtual"}
+            </p>
           </Grid>
 
           <Grid

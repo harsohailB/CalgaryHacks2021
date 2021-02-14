@@ -54,12 +54,6 @@ const CreateErrandPage = () => {
             lat: fetchedGeoCode[0].geometry.viewport.Va.i,
             lon: fetchedGeoCode[0].geometry.viewport.Qa.i,
           });
-        } else {
-          setFormAddress({
-            title: address.label,
-            lat: null,
-            lon: null,
-          });
         }
       });
     }
@@ -76,11 +70,11 @@ const CreateErrandPage = () => {
           startTime: null,
           endTime: null,
           poster: "",
-          address: formAddress,
         }}
         onSubmit={async (values, { setSubmitting }) => {
           const reqBody = {
             ...values,
+            address: formAddress,
             posterId: user._id,
           };
           const { data: errand } = await axios.post("/api/errands", reqBody);

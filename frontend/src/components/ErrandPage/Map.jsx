@@ -52,12 +52,13 @@ const Map = ({ errandAddress }) => {
   }, []);
 
   useEffect(() => {
-    if (currentLocation && destination) {
+    console.log(errandAddress);
+    if (currentLocation) {
       getDirections(
-        currentLocation.latitude,
-        currentLocation.longitude,
-        destination.latitude,
-        destination.longitude
+        currentLocation.lat,
+        currentLocation.lon,
+        destination.lat,
+        destination.lon
       ).then((fetchedDirection) => {
         const stepCoords = fetchedDirection.routes[0].geometry.coordinates.map(
           (coordinate) => {
@@ -67,6 +68,7 @@ const Map = ({ errandAddress }) => {
             };
           }
         );
+        console.log(stepCoords);
         setDirectionsPoints(stepCoords);
         setViewport({
           ...viewport,
