@@ -3,7 +3,7 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Errand = mongoose.model("errands");
 const ErrandType = mongoose.model("errandTypes");
-const MessageThread = mongoose.model("messageThreads");
+const MessageThread = mongoose.model("messagethreads");
 
 /* GET home page. */
 router.post("/", async function (req, res, next) {
@@ -35,6 +35,18 @@ router.post("/", async function (req, res, next) {
   const newErrand = await result.populate('poster').populate('messageThread').execPopulate();
 
   res.send(newErrand);
+});
+
+router.get("/", async function (req, res, next) {
+  const { id } = req.query;
+
+  const errand = await Errand.findById(id);
+
+  if (!errand) {
+    return res.status(404).send('No errand with that id found');
+  }
+
+  res.send(errand);
 });
 
 router.get("/poster/all", async function (req, res, next) {

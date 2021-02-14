@@ -6,7 +6,6 @@ const User = mongoose.model("users");
 /* GET home page. */
 router.get("/", async function (req, res, next) {
   const { username, password } = req.query;
-  console.log({ username, password });
 
   const user = await User.findOne({ username, password });
   if (!user) {

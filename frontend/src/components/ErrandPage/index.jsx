@@ -4,7 +4,8 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandDescriptionCard from "./ErrandDescriptionCard";
 import Map from "./Map";
 import UpdatesCard from "./UpdatesCard";
-import Message from "./Message"
+import Message from "./Message";
+import useErrand from "./useErrand";
 
 const sampleErrand = {
   name: "Gift Delivery",
@@ -38,8 +39,9 @@ const useStyles = makeStyles((theme) =>
 
 const ErrandPage = ({ id }) => {
   const classes = useStyles();
+  const { errand, error, isLoading } = useErrand();
 
-  return (
+  return errand ? (
     <Grid
       container
       direction="row"
@@ -47,7 +49,7 @@ const ErrandPage = ({ id }) => {
       className={classes.root}
     >
       <Grid item className={classes.third}>
-        <ErrandDescriptionCard errand={sampleErrand} />
+        <ErrandDescriptionCard errand={errand} />
       </Grid>
 
       <Grid container className={classes.twoThirds} direction="column">
@@ -62,10 +64,12 @@ const ErrandPage = ({ id }) => {
           <UpdatesCard />
 
           {/* to be replace with messages regarding errand */}
-          <Message />
+          <Message errand={errand} />
         </Grid>
       </Grid>
     </Grid>
+  ) : (
+    <div>Loading...</div>
   );
 };
 

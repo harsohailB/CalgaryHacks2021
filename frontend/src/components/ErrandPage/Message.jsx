@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Grid, Typography, TextField } from "@material-ui/core";
 import MessageBox from "./Messagebox";
+import useMessages from "./useMessages";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -12,7 +13,6 @@ const useStyles = makeStyles((theme) =>
       borderRadius: "7px",
       padding: "20px",
       backgroundColor: theme.palette.background.default,
-      
     },
     title: {
       marginBottom: "20px",
@@ -24,14 +24,14 @@ const useStyles = makeStyles((theme) =>
       padding: "10px 10px 5px 50px",
       display: "inline-block",
       marginTop: "15px",
-      marginright: "20px"
+      marginright: "20px",
     },
     boxtext: {
-      fontfamily: "Sora",
-      fontstyle: "normal",
-      fontweight: "normal",
-      fontsize: "16px",
-      lineheight: "10px",
+      fontFamily: "Sora",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: "16px",
+      lineHeight: "10px",
     },
   })
 );
@@ -49,8 +49,14 @@ const sampleMessage = [
   },
 ];
 
-const Message = () => {
+const Message = ({ errand }) => {
   const classes = useStyles();
+  const { messages, onSend } = useMessages(errand);
+  const [textField, setTextField] = useState("");
+
+  const handleChange = (event) => {
+    setTextField(event.target.value);
+  };
 
   return (
     <Grid
@@ -58,21 +64,24 @@ const Message = () => {
       direction="column"
       className={classes.root}
       justify="space-between"
-  
     >
       <Typography variant="h6" color="textPrimary" className={classes.title}>
         Messages
       </Typography>
 
-      {sampleMessage.map((message) => (
-        <MessageBox message={message} />
+      {messages.map((message) => (
+        <MessageBox message={message} errand={errand} />
       ))}
 
       <TextField
         className={classes.textbox}
         label="Type to chat..."
-      >
-      </TextField>
+        onKeyDown={(event) =>
+          event.keyCode === 13 && (onSend(textField) || setTextField(""))
+        }
+        onChange={handleChange}
+        value={textField}
+      ></TextField>
     </Grid>
   );
 };

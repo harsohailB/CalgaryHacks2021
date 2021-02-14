@@ -3,6 +3,16 @@ var router = express.Router();
 const mongoose = require("mongoose");
 const Tag = mongoose.model("tags");
 
+const createTag = async (text) => {
+  const tagInfo = {
+    text,
+    slug: typeof text === 'string' ? text.toLowerCase().replace(' ', '-') : text
+  };
+
+  const newTag = await new Tag(tagInfo).save();
+  return newTag;
+}
+
 router.get('/all', async function (req, res, next) {
   const allTags = await Tag.find({});
 
@@ -10,18 +20,8 @@ router.get('/all', async function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-  const {
-    text
-  } = req.body;
-
-  const tagInfo = {
-    text,
-    slug: typeof text === 'string' ? text.toLowerCase().replace(' ', '-') : text
-  };
-
-  const newTag = await new Tag(tagInfo).save();
-
+  const newTag = await createTag(req.body.text);
   res.send(newTag);
 });
 
-module.exports = router;
+module.exports = { router, createTag };

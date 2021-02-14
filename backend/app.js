@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
 var debug = require('debug')('app');
-const socketIo = require("socket.io");
 
 // models go here
 require("./models/User");
@@ -41,7 +40,7 @@ var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
 var errandsRouter = require('./routes/errands');
-var tagsRouter = require('./routes/tags');
+var tagsRouter = require('./routes/tags').router;
 
 app.use('/api', indexRouter);
 app.use('/api/auth', authRouter);

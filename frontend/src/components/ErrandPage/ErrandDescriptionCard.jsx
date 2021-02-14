@@ -16,9 +16,6 @@ const useStyles = makeStyles((theme) =>
       padding: "20px",
       backgroundColor: theme.palette.background.default,
     },
-    title: {
-      marginBottom: "20px",
-    },
     header: {
       marginBottom: "15px",
     },
@@ -26,6 +23,7 @@ const useStyles = makeStyles((theme) =>
       fontSize: "1.2em",
       fontWeight: "normal",
       margin: "0",
+      marginBottom: "20px",
     },
     details: {
       fontSize: "1em",
@@ -86,9 +84,11 @@ const ErrandDescriptionCard = ({ errand }) => {
           <Typography variant="h6" color="textPrimary">
             {errand.name}
           </Typography>
-          <Typography variant="h6" color="textPrimary">
-            {formatCurrency(errand.price)}
-          </Typography>
+          {errand.price && (
+            <Typography variant="h6" color="textPrimary">
+              {formatCurrency(errand.price)}
+            </Typography>
+          )}
         </Grid>
 
         <Grid
@@ -97,10 +97,10 @@ const ErrandDescriptionCard = ({ errand }) => {
           justify="space-between"
           className={classes.header}
         >
+          <p className={classes.details}>{errand.endTime.toLocaleString()}</p>
           <p className={classes.details}>
-            {errand.endDateTime.toLocaleString()}
+            {errand.distance ? errand.distance + " km" : "Virtual"}
           </p>
-          <p className={classes.details}>{errand.distance || "Virtual"} km</p>
         </Grid>
 
         <Typography variant="p" color="textPrimary">
@@ -119,7 +119,7 @@ const ErrandDescriptionCard = ({ errand }) => {
               src={placeholderPic}
               className={classes.detailIcon}
             />
-            <p className={classes.details}>{errand.posterName}</p>
+            <p className={classes.details}>{errand.poster.name}</p>
           </Grid>
 
           <Grid
@@ -135,7 +135,10 @@ const ErrandDescriptionCard = ({ errand }) => {
 
         <Grid container direction="row" className={classes.tags}>
           {errand.tags.map((tag, index) => (
-            <Tag value={tag} color={index % 2 === 0 ? "#C4C4C4" : "#F8AFAF"} />
+            <Tag
+              value={tag.text}
+              color={index % 2 === 0 ? "#C4C4C4" : "#F8AFAF"}
+            />
           ))}
         </Grid>
       </Grid>
