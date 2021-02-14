@@ -18,6 +18,7 @@ const errand = new Schema({
   type: { type: Schema.Types.ObjectId, ref: "errandTypes", autopopulate: "true" },
   currentStageIdx: { type: Number, default: 0 },
   applications: [{ type: Schema.Types.ObjectId, ref: "applications", autopopulate: "true" }],
+  address: [{ type: Schema.Types.ObjectId, ref: "addresses", autopopulate: "true "}],
 });
 
 errand.plugin(require('mongoose-autopopulate'));

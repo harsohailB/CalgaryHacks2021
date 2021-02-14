@@ -7,9 +7,11 @@ const Message = mongoose.model("messages");
 router.get("/all", async function (req, res, next) {
   const {
     userId
-  } = req.body;
+  } = req.query;
 
-  const messages = await Message.find({ recipient: userId });
+  const messages = await Message.find({ recipient: userId }).sort({ time: -1 }).populate('errand', 'name _id').populate('author');
+
+  console.log(messages.length ? messages[0] : null);
 
   res.send(messages);
 });
