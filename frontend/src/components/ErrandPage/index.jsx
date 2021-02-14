@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) =>
     },
     card: {
       boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
-      height: "56.5%",
+      height: "50%",
       borderRadius: "7px",
       padding: "20px",
       backgroundColor: theme.palette.background.default,
