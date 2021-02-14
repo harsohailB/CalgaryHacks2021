@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "100vw",
     height: "90vh",
-    maxHeight: "88vh",
+    maxHeight: "90vh",
     marginTop: "10px",
   },
   mid: {
