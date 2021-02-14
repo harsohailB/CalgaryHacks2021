@@ -15,12 +15,17 @@ const useStyles = makeStyles((theme) =>
     title: {
       marginBottom: "20px",
     },
+    detail: {
+      fontSize: "1em",
+      fontWeight: "normal",
+      margin: "0",
+      color: theme.palette.text.secondary,
+    },
   })
 );
 
-const ErrandsCard = ({ title, questerSelect}) => {
+const ErrandsCard = ({ title, errands }) => {
   const classes = useStyles();
-  const available = title === "Available Errands";
 
   const sampleErrands = [
     {
@@ -49,9 +54,15 @@ const ErrandsCard = ({ title, questerSelect}) => {
         {title}
       </Typography>
 
-      {sampleErrands.map((errand) => (
-        <Errand errand={errand} available={available} questerSelect={questerSelect}/>
-      ))}
+      {errands.length > 0 ? (
+        <Grid item>
+          {errands.map((errand) => (
+            <Errand errand={errand} />
+          ))}
+        </Grid>
+      ) : (
+        <p className={classes.detail}>No Errands</p>
+      )}
     </Grid>
   );
 };

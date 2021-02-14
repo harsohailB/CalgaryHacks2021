@@ -14,6 +14,7 @@ import {
   Theme,
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { LOGOUT } from "../contexts/types";
 import { UserContext } from "../contexts/UserContext";
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ProfileMenu = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   const [user, dispatchToUser] = useContext(UserContext);
   const [profileMenuAnchorEl, setProfileMenuAnchorEl] = useState(null);
@@ -51,6 +53,11 @@ const ProfileMenu = () => {
 
   const handleProfileMenuClose = () => {
     setProfileMenuAnchorEl(null);
+  };
+
+  const routeChange = () => { 
+    let path = '/profile/1'; 
+    history.push(path);
   };
 
   const handleLogout = () => {
@@ -96,7 +103,7 @@ const ProfileMenu = () => {
               style={{ color: "black" }}
             />
           </ListItemIcon>
-          <ListItemText style={{ color: "black" }}>Account</ListItemText>
+          <ListItemText style={{ color: "black" }} onClick={routeChange}>Account</ListItemText>
         </MenuItem>
 
         <MenuItem className={classes.menuItem} onClick={handleLogout}>

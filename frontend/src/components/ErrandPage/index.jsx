@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandDescriptionCard from "./ErrandDescriptionCard";
 import Map from "./Map";
@@ -70,7 +70,7 @@ const ErrandPage = ({ id }) => {
           container
           direction="row"
           justify="space-around"
-          style={{ width: "100%", marginTop: "10px" }}
+          style={{ width: "100%", marginTop: "10px", maxHeight: "45%" }}
         >
           <UpdatesCard />
 
@@ -80,7 +80,7 @@ const ErrandPage = ({ id }) => {
       </Grid>
     </Grid>
   ) : (
-    <div>Loading...</div>
+    <CircularProgress color="primary" />
   );
 };
 

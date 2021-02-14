@@ -8,6 +8,7 @@ import {
   Select,
   MenuItem,
   Tooltip,
+  IconButton,
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
@@ -15,6 +16,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 import ProfileMenu from "./ProfileMenu";
 import { useLocation } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -64,6 +66,12 @@ const Navbar = () => {
               </Link>
             </Typography>
             <span className={classes.subtitle}>{subtitle}</span>
+
+            {subtitle === "Poster" && (
+              <IconButton href="/create">
+                <AddIcon />
+              </IconButton>
+            )}
           </Grid>
 
           {user ? (

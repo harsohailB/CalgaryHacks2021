@@ -1,8 +1,14 @@
-import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import React, { useContext } from "react";
+import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandsCard from "./ErrandsCard";
 import MessagesCardWithoutInput from "../shared/MessagesCardWithoutInput";
+import { useQuery } from "react-query";
+import { UserContext } from "../../contexts/UserContext";
+import {
+  getAcceptedErrandsForQuester,
+  getAvailableErrandsForQuester,
+} from "../../actions/errands";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -26,6 +32,29 @@ const useStyles = makeStyles((theme) =>
 const QuesterHomePage = () => {
   const classes = useStyles();
 
+  const [user] = useContext(UserContext);
+
+  // State Management
+
+  // Queries
+  const {
+    data: availableErrands,
+    isLoading: availableErrandsLoading,
+    isSuccess: availableErrandsSuccess,
+    refetch: availableErrandsRefetch,
+  } = useQuery(["available_errands_quester"], () =>
+    getAvailableErrandsForQuester(user.id)
+  );
+
+  const {
+    data: acceptedErrands,
+    isLoading: acceptedErrandsLoading,
+    isSuccess: acceptedErrandsSuccess,
+    refetch: acceptedErrandsRefetch,
+  } = useQuery(["accepted_errands_quester"], () =>
+    getAcceptedErrandsForQuester(user.id)
+  );
+
   return (
     <Grid
       container
@@ -34,10 +63,18 @@ const QuesterHomePage = () => {
       className={classes.root}
     >
       <Grid item className={classes.third}>
-        <ErrandsCard title="Errands To Do" />
+        {acceptedErrandsLoading ? (
+          <CircularProgress color="primary" />
+        ) : (
+          <ErrandsCard title="To Do Errands" errands={acceptedErrands} />
+        )}
       </Grid>
       <Grid item className={classes.third}>
-        <ErrandsCard title="Available Errands" />
+        {availableErrandsLoading ? (
+          <CircularProgress color="primary" />
+        ) : (
+          <ErrandsCard title="Available Errands" errands={availableErrands} />
+        )}
       </Grid>
       <Grid
         container
@@ -47,7 +84,7 @@ const QuesterHomePage = () => {
         className={classes.third}
       >
         <Grid item className={classes.half}>
-          <ErrandsCard title="Pending Errands" />
+          <ErrandsCard title="Pending Errands" errands={[]} />
         </Grid>
         <Grid item className={classes.half}>
           <MessagesCardWithoutInput />
