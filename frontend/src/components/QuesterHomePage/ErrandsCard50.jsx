@@ -6,7 +6,7 @@ import Errand from "../shared/Errand";
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      height: "98%",
+      height: "48%",
       boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.25)",
       borderRadius: "7px",
       padding: "20px",
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const ErrandsCard = ({ title }) => {
+const ErrandsCard = ({ title, questerSelect}) => {
   const classes = useStyles();
   const available = title === "Available Errands";
 
@@ -50,7 +50,7 @@ const ErrandsCard = ({ title }) => {
       </Typography>
 
       {sampleErrands.map((errand) => (
-        <Errand errand={errand} available={available} />
+        <Errand errand={errand} available={available} questerSelect={questerSelect}/>
       ))}
     </Grid>
   );
