@@ -46,6 +46,7 @@ const Navbar = () => {
           >
             <Grid item>
               <Button
+                href="/signup"
                 variant="outlined"
                 size="medium"
                 color="primary"
@@ -57,6 +58,7 @@ const Navbar = () => {
 
             <Grid item>
               <Button
+                href="/login"
                 variant="contained"
                 size="medium"
                 color="primary"
