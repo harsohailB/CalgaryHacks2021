@@ -1,13 +1,29 @@
 require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
+const mongoose = require("mongoose");
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
 var debug = require('debug')('app');
 
+// models go here
+require("./models/User");
+
 var indexRouter = require('./routes/index');
+var authRouter = require('./routes/auth');
+var usersRouter = require('./routes/users');
+
+const mongoUri = process.env.MONGO_URI;
+
+if (!mongoUri) {
+  console.error('MONGO_URI environment variable not defined');
+  process.exit(0);
+}
+
+mongoose.connect(mongoUri);
 
 var app = express();
 
@@ -17,7 +33,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/api', indexRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/user', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
