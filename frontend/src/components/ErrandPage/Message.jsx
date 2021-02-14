@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) =>
       borderradius: "10px",
       padding: "10px 10px 5px 50px",
       display: "inline-block",
+      marginTop: "15px",
+      marginright: "20px"
     },
     boxtext: {
       fontfamily: "Sora",
