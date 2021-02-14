@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { CircularProgress, Grid, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import ErrandDescriptionCard from "./ErrandDescriptionCard";
 import Map from "./Map";
@@ -71,7 +71,7 @@ const ErrandPage = ({ id }) => {
       </Grid>
     </Grid>
   ) : (
-    <div>Loading...</div>
+    <CircularProgress color="primary" />
   );
 };
 

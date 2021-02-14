@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-const Errand = ({ errand, available, questerSelect, numApplicants }) => {
+const Errand = ({ errand }) => {
   const classes = useStyles();
 
   const history = useHistory();
@@ -84,11 +84,11 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
       container
       direction="column"
       className={classes.root}
-      onClick={() => history.push("/errand/1")}
+      onClick={() => history.push(`/errand/${errand._id}`)}
     >
       <Grid container direction="row" justify="space-between">
         <p className={classes.title}>{errand.name}</p>
-        <p className={classes.title}>{formatCurrency(errand.price)}</p>
+        <p className={classes.title}>{formatCurrency(23)}</p>
       </Grid>
 
       <Grid
@@ -97,8 +97,12 @@ const Errand = ({ errand, available, questerSelect, numApplicants }) => {
         justify="space-between"
         className={classes.header}
       >
-        <p className={classes.details}>{errand.endDateTime.toLocaleString()}</p>
-        <p className={classes.details}>{errand.distance || "Virtual"} km</p>
+        {errand.expiryTime && (
+          <p className={classes.details}>
+            {errand.expiryTime.toLocaleString()}
+          </p>
+        )}
+        <p className={classes.details}>{errand.distance || "Virtual"} </p>
       </Grid>
 
       <Typography variant="p" color="textPrimary">
