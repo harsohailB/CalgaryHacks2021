@@ -55,14 +55,14 @@ const ProfileMenu = () => {
     setProfileMenuAnchorEl(null);
   };
 
-  const routeChange = () => { 
-    let path = '/profile/1'; 
+  const routeChange = () => {
+    let path = "/profile/1";
     history.push(path);
   };
 
   const handleLogout = () => {
     dispatchToUser({ type: LOGOUT, payload: user });
-    window.location.reload(true);
+    history.push("/");
   };
 
   return (
@@ -103,7 +103,9 @@ const ProfileMenu = () => {
               style={{ color: "black" }}
             />
           </ListItemIcon>
-          <ListItemText style={{ color: "black" }} onClick={routeChange}>Account</ListItemText>
+          <ListItemText style={{ color: "black" }} onClick={routeChange}>
+            Account
+          </ListItemText>
         </MenuItem>
 
         <MenuItem className={classes.menuItem} onClick={handleLogout}>

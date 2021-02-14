@@ -69,6 +69,7 @@ router.get("/poster/all", async function (req, res, next) {
   const { posterId } = req.query;
 
   const errands = await Errand.find({ poster: posterId })
+    .sort({ endTime: -1, expiryTime: -1 })
     .populate("poster")
     .populate("quester")
     .populate("review");
@@ -83,6 +84,7 @@ router.get("/poster", async function (req, res, next) {
   if (status) params.status = status;
 
   const errands = await Errand.find(params)
+    .sort({ endTime: -1, expiryTime: -1 })
     .populate("poster")
     .populate("quester")
     .populate("review");
@@ -97,6 +99,7 @@ router.get("/quester", async function (req, res, next) {
   if (status) params.status = status;
 
   const errands = await Errand.find(params)
+    .sort({ endTime: -1, expiryTime: -1 })
     .populate("poster")
     .populate("quester")
     .populate("review");
